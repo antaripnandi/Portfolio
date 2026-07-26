@@ -3,26 +3,42 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const WORDS = ['Dream.', 'Create.', 'Inspire.'];
 
-export const IntroSplashScreen: React.FC = () => {
+interface IntroSplashScreenProps {
+  onComplete?: () => void;
+}
+
+export const IntroSplashScreen: React.FC<IntroSplashScreenProps> = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isSlidingOut, setIsSlidingOut] = useState(false);
   const [isSkipped, setIsSkipped] = useState(false);
 
   const timer1Ref = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timer2Ref = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasCalledComplete = useRef(false);
+
+  const triggerComplete = () => {
+    if (!hasCalledComplete.current) {
+      hasCalledComplete.current = true;
+      onComplete?.();
+    }
+  };
 
   useEffect(() => {
     if (!isVisible) return;
+
+    // Reset scroll position to top
+    window.scrollTo(0, 0);
 
     // Lock body scroll while splash overlay is active
     document.body.style.overflow = 'hidden';
 
     // Timeline:
     // Sequential text reveal: Word 0 (0.1s->0.9s), Word 1 (0.6s->1.4s), Word 2 (1.1s->1.9s)
-    // At 2200ms, start curtain slide down transition
+    // At 2200ms, start curtain slide down transition & notify hero fade-in to begin
     // At 3000ms, complete splash screen
     timer1Ref.current = setTimeout(() => {
       setIsSlidingOut(true); // Begin curtain slide down
+      triggerComplete();
     }, 2200);
 
     timer2Ref.current = setTimeout(() => {
@@ -45,6 +61,7 @@ export const IntroSplashScreen: React.FC = () => {
 
     setIsSkipped(true);
     setIsSlidingOut(true);
+    triggerComplete();
 
     setTimeout(() => {
       setIsVisible(false);

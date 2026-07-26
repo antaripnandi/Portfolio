@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { HERO_DATA } from '../data/portfolioData';
 import { ConnectModal } from './ConnectModal';
 
-export const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  isSplashFinished?: boolean;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = false }) => {
   const avatarRef = useRef<HTMLDivElement>(null);
   const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0, scale: 1 });
   const [previewAvatar, setPreviewAvatar] = useState(false);
@@ -21,6 +25,8 @@ export const HeroSection: React.FC = () => {
   const heroTranslateY = scrollY * 0.15;
 
   useEffect(() => {
+    if (!isSplashFinished) return;
+
     // Stage 1: Load UI elements (pills, background frame) smoothly
     const t0 = setTimeout(() => setUiLoaded(true), 100);
     // Stage 2: Load Name smoothly after UI
@@ -46,7 +52,7 @@ export const HeroSection: React.FC = () => {
       clearTimeout(t2);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isSplashFinished]);
 
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 

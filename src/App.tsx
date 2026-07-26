@@ -15,6 +15,27 @@ import { IntroSplashScreen } from './components/IntroSplashScreen';
 export default function App() {
   const [activeSection, setActiveSection] = useState<string>('about');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [splashFinished, setSplashFinished] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Disable browser automatic scroll restoration on reload
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Instantly scroll to top on mount
+    window.scrollTo(0, 0);
+
+    // Also handle beforeunload/unload to ensure page resets to top on fresh reloads
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -41,7 +62,7 @@ export default function App() {
   return (
     <div className="relative bg-[#16130f] text-[#eae1db] font-sans-body min-h-screen selection:bg-[#f2c08d] selection:text-[#16130f]">
       {/* Intro Splash Screen */}
-      <IntroSplashScreen />
+      <IntroSplashScreen onComplete={() => setSplashFinished(true)} />
 
       {/* Custom Fluid Cursor */}
       <CustomCursor />
@@ -50,11 +71,11 @@ export default function App() {
       <div className="fixed inset-0 grain-overlay z-50 pointer-events-none" />
 
       {/* Floating navigation */}
-      <Navbar activeSection={activeSection} />
+      <Navbar activeSection={activeSection} isSplashFinished={splashFinished} />
 
       {/* Main Sections */}
       <main className="relative z-10">
-        <HeroSection />
+        <HeroSection isSplashFinished={splashFinished} />
         <AboutSection />
         <SongRecommendations />
         <WorkSection onSelectProject={proj => setSelectedProject(proj)} />

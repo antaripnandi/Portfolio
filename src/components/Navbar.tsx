@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 interface NavbarProps {
   activeSection: string;
+  isSplashFinished?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   };
 
   useEffect(() => {
+    if (!isSplashFinished) return;
     const t = setTimeout(() => setMounted(true), 100);
 
     const handleClickOutside = (e: MouseEvent) => {
@@ -46,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       clearTimeout(t);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [isSplashFinished]);
 
   return (
     <div
