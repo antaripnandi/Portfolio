@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-surface: #16130f;
+    --bg-surface-low: #1f1b17;
+    --bg-surface-container: #231f1b;
+    --bg-surface-high: #2e2925;
+    --bg-surface-highest: #393430;
+    --color-primary: #f2c08d;
+    --color-primary-container: #d4a574;
+    --color-on-surface: #eae1db;
+    --color-on-surface-variant: #d4c4b7;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: #16130f;
+    color: #eae1db;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Disable smooth scroll for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom Cursor override for fine pointers */
+  @media (pointer: fine) {
+    body, a, button, input, [role="button"], .cursor-pointer {
+      cursor: none !important;
+    }
+  }
+}
+
+.font-anton {
+  font-family: 'Anton', sans-serif;
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.font-sans-body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Material Symbols Outlined */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hardware Acceleration Helper */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Animations & Effects */
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); } 
+  33% { transform: translate3d(30px, -50px, 0); } 
+  66% { transform: translate3d(-20px, 20px, 0); }
+}
+
+.glow-blob {
+  filter: blur(80px);
+  -webkit-filter: blur(80px);
+  opacity: 0.08;
+  animation: float 20s infinite ease-in-out;
+  will-change: transform;
+}
+
+.grain-overlay {
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYOrw63weKeQyMZEMHVIU4mcqrxy4SefFzYVBojXid_HYHpSPvMHgtyDNRviv2LQ2H12qWWhUI-NEFUbq6Cf3VSbbcnR0wqn4eXd6_I1tpH6-HhkcFZ8otfOZodrisqoAxhWCOBt8QNVNircRIj44eLAX_Zi9Sk16wQc3KrRJRBvCq050TAAcGYlsC0QL9jgMkPPbJDBQ9qWgvFTE1LywskqpndRQ0VUOmX8Z8wCptSN-b2Am0vDj-lvaX0w7Jk4nS7bD8l1M86un4');
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+/* Infinite Marquee Animations for Music Showcase */
+@keyframes marqueeLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 38s linear infinite;
+  will-change: transform;
+}
+
+/* Hovering over marquee container or any element inside pauses motion smoothly */
+.pause-on-hover:hover .animate-marquee-left,
+.pause-on-hover:hover .animate-marquee-right {
+  animation-play-state: paused !important;
+}
+
+/* Card hover glow with hardware acceleration */
+.card-amber-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+.card-amber-hover:hover {
+  border-color: rgba(242, 192, 141, 0.4);
+  box-shadow: 0 15px 30px -10px rgba(212, 165, 116, 0.25);
+  transform: translate3d(0, -4px, 0) scale(1.01);
+}
+
+/* Custom thin dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #16130f;
+}
+::-webkit-scrollbar-thumb {
+  background: #393430;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4a574;
+}
+
+/* Custom Scrollbar for dark modal frames */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(22, 19, 15, 0.4);
+  border-radius: 9999px;
+  margin: 12px 0;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(242, 192, 141, 0.3);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 192, 141, 0.6);
+}
+
