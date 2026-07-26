@@ -125,7 +125,8 @@ export const PROJECTS_DATA: Project[] = [
       'MySQL-backed leaderboard tracking top player scores and times'
     ],
     architecture: 'Python · MySQL Database · Grid Validation Engine',
-    githubUrl: 'https://github.com/antaripnandi/Sudoku'
+    githubUrl: 'https://github.com/antaripnandi/Sudoku',
+    demoType: 'interactive-sudoku'
   },
   {
     id: 'minecraft-mods',

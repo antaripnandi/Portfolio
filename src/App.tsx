@@ -9,6 +9,7 @@ import { NowSection } from './components/NowSection';
 import { BeyondSection } from './components/BeyondSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
+import { ResumeModal } from './components/ResumeModal';
 import { CustomCursor } from './components/CustomCursor';
 import { IntroSplashScreen } from './components/IntroSplashScreen';
 
@@ -16,6 +17,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<string>('about');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [splashFinished, setSplashFinished] = useState<boolean>(false);
+  const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
 
   useEffect(() => {
     // Disable browser automatic scroll restoration on reload
@@ -71,12 +73,17 @@ export default function App() {
       <div className="fixed inset-0 grain-overlay z-50 pointer-events-none" />
 
       {/* Floating navigation */}
-      <Navbar activeSection={activeSection} isSplashFinished={splashFinished} />
+      <Navbar
+        activeSection={activeSection}
+        isSplashFinished={splashFinished}
+      />
 
       {/* Main Sections */}
       <main className="relative z-10">
-        <HeroSection isSplashFinished={splashFinished} />
-        <AboutSection />
+        <HeroSection
+          isSplashFinished={splashFinished}
+        />
+        <AboutSection onOpenResume={() => setIsResumeOpen(true)} />
         <SongRecommendations />
         <WorkSection onSelectProject={proj => setSelectedProject(proj)} />
         <NowSection />
@@ -90,6 +97,12 @@ export default function App() {
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
+      />
+
+      {/* Resume / CV modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
       />
     </div>
   );

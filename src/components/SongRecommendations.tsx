@@ -9,9 +9,6 @@ const TiltedSongCard: React.FC<{
   onClick: () => void;
 }> = ({ song, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [transformStyle, setTransformStyle] = useState<string>(
-    'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px)'
-  );
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -26,15 +23,12 @@ const TiltedSongCard: React.FC<{
     const normX = (x - centerX) / centerX; // -1 to 1
     const normY = (y - centerY) / centerY; // -1 to 1
 
-    // Rotation side-by-side (rotateY) and vertical (rotateX)
-    const rotateY = normX * 10; // gentle side tilt
-    const rotateX = -normY * 8;  // gentle vertical tilt
-    const translateX = normX * 6; // subtle magnetic side movement
+    const rotateY = normX * 10;
+    const rotateX = -normY * 8;
+    const translateX = normX * 6;
     const translateY = normY * 6;
 
-    setTransformStyle(
-      `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translate3d(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px, 0px) scale(1.06)`
-    );
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translate3d(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px, 0px) scale(1.06)`;
   };
 
   const handleMouseEnter = () => {
@@ -43,9 +37,9 @@ const TiltedSongCard: React.FC<{
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    setTransformStyle(
-      'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px) scale(1)'
-    );
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px) scale(1)';
+    }
   };
 
   return (
@@ -57,7 +51,7 @@ const TiltedSongCard: React.FC<{
       onMouseLeave={handleMouseLeave}
       title={`${song.title} - ${song.artist}`}
       style={{
-        transform: transformStyle,
+        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px) scale(1)',
         transition: isHovered
           ? 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)'
           : 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',

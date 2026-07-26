@@ -78,7 +78,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
 
   return (
     <section id="hero" className="min-h-screen flex flex-col items-center justify-center py-20 text-center relative w-full overflow-hidden">
-      {/* Top Left Connect Button anchored to the fixed top bar */}
+      {/* Top Left Connect Button anchored to fixed top bar */}
       <button
         onClick={() => setIsConnectOpen(true)}
         style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}

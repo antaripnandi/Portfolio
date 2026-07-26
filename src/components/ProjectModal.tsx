@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Project } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
+import { SudokuGame } from './SudokuGame';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -99,6 +100,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <p className="font-mono-tech text-xs text-[#f2c08d]">
                 {project.architecture}
               </p>
+            </div>
+          )}
+
+          {(project.demoType === 'interactive-sudoku' || project.id === 'sudoku') && (
+            <div className="my-6 border-t border-white/10 pt-6">
+              <SudokuGame />
             </div>
           )}
 

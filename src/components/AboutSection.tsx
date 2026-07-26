@@ -2,7 +2,11 @@ import React from 'react';
 import { ABOUT_DATA } from '../data/portfolioData';
 import { motion } from 'motion/react';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  onOpenResume?: () => void;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume }) => {
   return (
     <section
       id="about"
@@ -33,6 +37,16 @@ export const AboutSection: React.FC = () => {
           <p className="text-base text-[#d4c4b7] leading-relaxed">
             {ABOUT_DATA.bioSecondary}
           </p>
+
+          <div className="pt-2">
+            <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#231f1b] hover:bg-[#2c2722] border border-white/10 hover:border-[#f2c08d]/60 rounded-xl text-[#f2c08d] font-mono-tech text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow hover:-translate-y-0.5 active:scale-95"
+            >
+              <span className="material-symbols-outlined text-base">description</span>
+              <span>Inspect Full Resume / CV</span>
+            </button>
+          </div>
         </div>
 
         {/* Skills list with borders & hover states */}
