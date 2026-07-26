@@ -72,7 +72,7 @@ export const SONGS_DATA: SongTrack[] = [
 export const HERO_DATA = {
   nameFirst: 'ANTARIP',
   nameLast: 'NANDI',
-  location: 'Siliguri, India',
+  location: 'Chennai / Siliguri, India',
   age: '17 Years Old',
   specialization: 'AI · Advanced Web Design · Systems',
   avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6Ph1aUBLx03spHIW-mTilL10YVHgWq6NfWqePnyZ3QR5CkCfwiPKHszy7hCFhchLiGfSe-guin6XZVhhlUPBQvjXnIRv-AurxBdWB2AC8OBMc-Eh4lk6Q4_Nsd03sXs8ZvUBoqqeV6xTwQzz5GaQo8qcCUfxgKyYd6zfoXq7C4dl9ysb-I5dEcIKqkyAy5zT2BxpEj-OFfWRYlqlqLplaXF47rBBlvKOiLl6i-1eWGlNexyCcqsJrXjJFokMEmAI7KQZsdULmugW3',
@@ -81,8 +81,8 @@ export const HERO_DATA = {
 
 export const ABOUT_DATA = {
   sectionLabel: '01 — ABOUT',
-  bioPrimary: `I am Antarip Nandi, a developer deeply focused on AI Systems & Agents, Advanced Web Design, Minecraft modding, and creative digital engineering. Currently a first year CSE student specializing in AI/ML, based in Siliguri, West Bengal.`,
-  bioSecondary: `From engineering multi-agent ecosystems to crafting immersive web interfaces with smooth micro-interactions, fluid layout math, and 3D dynamics, I build software that balances technical performance with exceptional design.`,
+  bioPrimary: `I am Antarip Nandi, a developer deeply focused on AI Systems & Agents, Advanced Web Design, Minecraft modding, and creative digital engineering. Currently a first-year CSE student studying in Chennai, originally from Siliguri, West Bengal, and specializing in AI/ML.`,
+  bioSecondary: `I build software that balances high technical performance with clean, responsive design — from multi-agent AI tools to custom gameplay mods and interactive web applications.`,
   skills: [
     { title: 'AI Systems & Agents', subtitle: 'Python / LLMs', tag: 'AI/ML' },
     { title: 'Advanced Web Design', subtitle: 'UI/UX & Interactive Design', tag: 'React / TS' },
@@ -97,16 +97,16 @@ export const PROJECTS_DATA: Project[] = [
     title: 'OPENCLAW',
     year: '2026',
     category: 'AI AGENT ECOSYSTEM',
-    description: 'A multi-agent system with 100+ specialized agents designed for LLM orchestration and autonomous task execution.',
+    description: 'A multi-agent framework built for AI agent coordination and autonomous task execution.',
     tags: ['Python', 'Multi-Agent', 'LLM'],
-    longDescription: 'OpenClaw is an architecture engineered for scalable LLM agent collaboration. It coordinates 100+ specialized micro-agents across autonomous reasoning loops, dynamic tool calling, memory synthesis, and self-correcting execution paths.',
+    longDescription: 'OpenClaw is a framework designed for coordinating multiple AI agents. It manages over 100 specialized micro-agents that handle task planning, tool execution, memory storage, and real-time execution feedback.',
     features: [
-      '100+ specialized domain agents operating in async pipelines',
-      'Contextual long-term memory graph with vector storage',
-      'Self-healing code execution and automated unit testing',
-      'Streamed agent thoughts and real-time execution feedback'
+      '100+ specialized domain agents operating in parallel',
+      'Long-term memory storage with fast vector retrieval',
+      'Automated task execution and error checking',
+      'Real-time streaming for agent thoughts and task status'
     ],
-    architecture: 'Python 3.12 · Asyncio · Vector Store · LLM Orchestration Engine',
+    architecture: 'Python 3.12 · Asyncio · Vector Store · LLM Agents',
     demoType: 'openclaw-agent'
   },
   {
@@ -116,16 +116,15 @@ export const PROJECTS_DATA: Project[] = [
     category: 'FULL STACK GAME',
     description: 'A full-featured Sudoku engine with 5 difficulty levels, random puzzle generation, move validation, and MySQL leaderboard tracking.',
     tags: ['Python', 'MySQL', 'Sudoku Engine', 'Algorithms'],
-    longDescription: 'A complete full-stack Sudoku application engineered with algorithmic puzzle generation, constraint satisfaction, and a relational MySQL backend. Features 5 distinct difficulty levels, full grid move validation, completion timers, and persistent leaderboard and solved board histories.',
+    longDescription: 'A complete full-stack Sudoku game built with custom puzzle generation and a MySQL database backend. Features 5 distinct difficulty levels, real-time grid move validation, completion timers, and persistent leaderboards.',
     features: [
       '5 Difficulty Levels: Very Easy, Easy, Mid, Hard, and Very Very Hard',
-      'Random puzzle generation every game with fixed, unchangeable starting clues',
-      'Full real-time move validation (rows, columns, and 3x3 sub-grids)',
+      'Random puzzle generation with unchangeable starting clues',
+      'Real-time move validation for rows, columns, and 3x3 sub-grids',
       'Built-in timer tracking exact time taken to solve each puzzle',
-      'MySQL-backed leaderboard with top scores sorted by fastest completion time',
-      'Database persistence for solved boards and player history'
+      'MySQL-backed leaderboard tracking top player scores and times'
     ],
-    architecture: 'Python · MySQL Database · Backtracking & Validation Engine',
+    architecture: 'Python · MySQL Database · Grid Validation Engine',
     githubUrl: 'https://github.com/antaripnandi/Sudoku'
   },
   {
@@ -133,36 +132,36 @@ export const PROJECTS_DATA: Project[] = [
     title: 'MINECRAFT MODS',
     year: '2026',
     category: 'GAME DEV',
-    description: 'Technical gameplay and debug HUD enhancements including F3 Advance, VeinMiner, Ender Chest Extender, and Barrel Extender.',
+    description: 'Gameplay and HUD enhancement mods including F3 Advance, VeinMiner, Ender Chest Extender, and Barrel Extender.',
     tags: ['Java', 'Minecraft Fabric / Forge', 'HUD & UI', 'Modding'],
-    longDescription: 'A collection of technical gameplay & HUD enhancement mods created to improve quality of life, performance diagnostics, and game mechanics in Minecraft. Built with Java and modern modding APIs (Fabric/Forge), focusing on low memory overhead, customizable F3 debug widgets, and seamless vanilla integration.',
+    longDescription: 'A collection of gameplay and HUD mods created for Minecraft using Java and modern modding APIs (Fabric/Forge). Designed for minimal memory overhead, clean UI customization, and seamless vanilla gameplay integration.',
     features: [
-      'F3 Advance: Advanced customizable debug HUD with real-time FPS graphs, chunk diagnostics, and modular telemetry panels',
-      'VeinMiner: Recursive connected-block mining with configurable energy and tool wear',
-      'Ender Chest Extender: Expanded multi-tab dimensionally linked inventory storage',
-      'Barrel Extender: Modular storage tile entities with custom NBT synchronization',
-      'High efficiency event listeners and lightweight hooks ensuring 60+ FPS server and client tick rates'
+      'F3 Advance: Customizable debug HUD with real-time FPS graphs and chunk information',
+      'VeinMiner: Mine connected ore veins in a single break with tool durability balance',
+      'Ender Chest Extender: Multi-tab inventory storage linked across dimensions',
+      'Barrel Extender: Expanded storage barrels with fast inventory saving',
+      'Lightweight hooks to keep server and client tick rates fast and smooth'
     ],
-    architecture: 'Java 17/21 · Fabric API / Minecraft Forge · Bytecode Mixins & OpenGL HUD Rendering',
+    architecture: 'Java 17/21 · Fabric API / Minecraft Forge · OpenGL HUD Rendering',
     modrinthUrl: 'https://modrinth.com/user/antarip',
     demoType: 'minecraft-mod'
   },
   {
     id: 'advanced-web-design',
-    title: 'ADVANCED WEB ARCHITECTURE',
+    title: 'ADVANCED WEB DESIGN',
     year: '2026',
     category: 'CREATIVE WEB & UI/UX',
-    description: 'Immersive, ultra-responsive web experiences with fluid motion and bespoke design systems. Example: This Portfolio.',
+    description: 'Clean, responsive web experiences with smooth animations and custom interactive layouts. Example: This Portfolio.',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Motion'],
-    longDescription: 'A showcase of modern advanced web design & UI/UX architecture — exemplified directly by this portfolio website. Features dark dynamic typography, mathematical layout scaling, subtle micro-interactions, hardware-accelerated tilt dynamics, and infinite marquee streams.',
+    longDescription: 'A showcase of creative web design and interactive UI — including this portfolio website. Built with dark typography, smooth hover micro-interactions, 3D tilt cards, and a music marquee.',
     features: [
-      'Featured Example: This personal portfolio website platform',
-      'Refined 3D tilt cards with gentle cursor tracking & ambient spotlight effects',
-      'Seamless endless music marquee stream with hover pause & smooth physics',
-      'Modal frame focus management & backdrop scroll locking',
-      'Adaptable responsive layout engineering tuned across all device viewports'
+      'Featured Example: This personal portfolio website',
+      'Interactive 3D tilt cards with mouse spotlight effects',
+      'Smooth music marquee with hover pause and fluid physics',
+      'Clean project detail modals with background scroll locking',
+      'Fully responsive layout built for all screen sizes'
     ],
-    architecture: 'React 18 · TypeScript · Motion · Tailwind CSS',
+    architecture: 'React 19 · TypeScript · Motion · Tailwind CSS',
     githubUrl: 'https://github.com/antaripnandi'
   }
 ];

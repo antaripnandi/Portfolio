@@ -16,10 +16,13 @@ export const AboutSection: React.FC = () => {
         className="grid md:grid-cols-12 gap-12 items-start"
       >
         {/* Section Label */}
-        <div className="md:col-span-2">
+        <div className="md:col-span-12 mb-2 md:mb-6">
           <span className="font-mono-tech text-xs text-[#f2c08d] uppercase tracking-[0.2em] block">
             {ABOUT_DATA.sectionLabel}
           </span>
+          <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#eae1db] mt-2 tracking-wide">
+            ABOUT ME
+          </h2>
         </div>
 
         {/* Bio Narrative */}

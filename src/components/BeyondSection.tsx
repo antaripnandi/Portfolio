@@ -20,7 +20,7 @@ export const BeyondSection: React.FC = () => {
         <span className="font-mono-tech text-xs text-[#f2c08d] uppercase tracking-[0.2em] block">
           04 — BEYOND
         </span>
-        <h2 className="font-anton text-5xl md:text-6xl text-[#eae1db] mt-4 tracking-wide">
+        <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#eae1db] mt-2 tracking-wide">
           INTERESTS
         </h2>
       </motion.div>

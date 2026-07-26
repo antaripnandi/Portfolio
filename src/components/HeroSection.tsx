@@ -72,11 +72,11 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section id="hero" className="min-h-screen flex flex-col items-center justify-center py-20 text-center relative w-full overflow-hidden">
-      {/* Top Left Connect Button anchored to the first section */}
+      {/* Top Left Connect Button anchored to the fixed top bar */}
       <button
         onClick={() => setIsConnectOpen(true)}
         style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
-        className={`absolute top-4 left-4 sm:top-6 sm:left-6 md:left-8 z-30 flex items-center px-5 py-2.5 sm:px-6 sm:py-3 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#d4c4b7]/80 hover:text-[#f2c08d] active:scale-95 transition-all duration-1000 ease-out cursor-pointer pointer-events-auto ${
+        className={`fixed top-4 left-4 sm:top-6 sm:left-6 md:left-8 z-[100] flex items-center justify-center h-10 px-4 sm:h-11 sm:px-6 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#d4c4b7] hover:text-[#f2c08d] active:scale-95 transition-all duration-1000 ease-out cursor-pointer pointer-events-auto ${
           uiLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >

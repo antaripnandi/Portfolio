@@ -141,7 +141,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectProject }) => 
         <span className="font-mono-tech text-xs text-[#f2c08d] uppercase tracking-[0.2em] block">
           02 — WORK
         </span>
-        <h2 className="font-anton text-5xl md:text-6xl text-[#eae1db] mt-4 tracking-wide">
+        <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#eae1db] mt-2 tracking-wide">
           PROJECTS
         </h2>
       </motion.div>

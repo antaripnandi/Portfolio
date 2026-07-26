@@ -180,7 +180,7 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
                   CONNECT
                 </span>
               </div>
-              <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-[#f0e8e0]">
+              <h2 className="font-anton text-2xl sm:text-3xl tracking-wide uppercase text-[#f0e8e0]">
                 Get in touch
               </h2>
               <p className="font-sans text-xs sm:text-sm text-[#d4c4b7]/70 mt-1">

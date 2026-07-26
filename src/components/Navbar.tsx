@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       {/* Desktop Navigation (Full horizontal bar on md+ screens) */}
       <nav
         style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
-        className="hidden md:flex items-center gap-6 px-8 py-3 bg-[#231f1b]/85 border border-white/10 rounded-full shadow-2xl"
+        className="hidden md:flex items-center gap-6 h-11 px-8 bg-[#231f1b]/85 border border-white/10 rounded-full shadow-2xl"
       >
         {navItems.map(item => {
           const isActive = activeSection === item.id;
@@ -82,10 +82,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       <div className="md:hidden relative flex flex-col items-end">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#231f1b]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#f2c08d] active:scale-95 transition-all"
+          style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+          className="flex items-center justify-center gap-1.5 h-10 px-4 sm:h-11 sm:px-6 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#f2c08d] active:scale-95 transition-all cursor-pointer"
         >
           <span>{currentLabel}</span>
-          <span className="material-symbols-outlined text-base transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+          <span className="material-symbols-outlined text-sm leading-none transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
             expand_more
           </span>
         </button>

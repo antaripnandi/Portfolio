@@ -13,17 +13,25 @@ export const NowSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-12 sm:mb-16"
+      >
+        <span className="font-mono-tech text-xs text-[#f2c08d] uppercase tracking-[0.2em] block">
+          03 — NOW
+        </span>
+        <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#eae1db] mt-2 tracking-wide">
+          CURRENT FOCUS
+        </h2>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className="grid md:grid-cols-2 gap-16 md:gap-20"
       >
         {/* Learning Column */}
         <div>
-          <div className="flex items-center gap-4 mb-12">
-            <span className="font-mono-tech text-xs text-[#f2c08d] uppercase tracking-widest">
-              03 — NOW
-            </span>
-            <div className="h-px bg-white/10 flex-grow" />
-          </div>
-
           <div className="space-y-12">
             <div>
               <h4 className="font-mono-tech text-xs text-[#d4c4b7]/50 uppercase mb-6 tracking-widest">
