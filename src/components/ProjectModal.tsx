@@ -9,15 +9,27 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
-  // Prevent portfolio background scrolling when modal is open
+  // Prevent portfolio background scrolling & stop Lenis when modal is open
   useEffect(() => {
     if (project) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+      }
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [project]);
 
@@ -45,7 +57,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto custom-scrollbar bg-[#1f1b17] border border-white/10 rounded-2xl p-6 md:p-10 shadow-2xl text-[#eae1db]"
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+          data-lenis-prevent-touch
+          className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-y-auto overscroll-contain custom-scrollbar bg-[#1f1b17] border border-white/10 rounded-2xl p-6 md:p-10 shadow-2xl text-[#eae1db]"
         >
           {/* Close button */}
           <button

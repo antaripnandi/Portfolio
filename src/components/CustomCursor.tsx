@@ -34,8 +34,12 @@ export const CustomCursor: React.FC = () => {
       return;
     }
 
-    const onMouseMove = (e: MouseEvent) => {
-      const { clientX: x, clientY: y } = e;
+    const updatePointerPosition = (e: MouseEvent | PointerEvent) => {
+      if (typeof e.clientX !== 'number' || typeof e.clientY !== 'number') return;
+
+      const x = e.clientX;
+      const y = e.clientY;
+
       mouseRef.current = { x, y };
 
       if (!initializedRef.current) {
@@ -44,22 +48,42 @@ export const CustomCursor: React.FC = () => {
         currentBlobRef.current.y = y - 24;
       }
 
-      // Inspect target element for avatar or morph targets
-      const target = e.target as HTMLElement | null;
+      // Check buttons state (if buttons === 0, user released mouse button)
+      if ('buttons' in e && e.buttons === 0) {
+        isClickingRef.current = false;
+      } else if ('buttons' in e && e.buttons > 0) {
+        isClickingRef.current = true;
+      }
+
+      // Inspect target element for scrollbars, avatar or morph targets
+      const target = (e.target || document.elementFromPoint(x, y)) as HTMLElement | null;
+      let overScrollbar = x >= window.innerWidth - 18;
+
       if (target) {
+        // Check if mouse is over a container's vertical scrollbar
+        const scrollContainer = target.closest('.overflow-y-auto, .custom-scrollbar') as HTMLElement | null;
+        if (scrollContainer && scrollContainer.scrollHeight > scrollContainer.clientHeight + 1) {
+          const rect = scrollContainer.getBoundingClientRect();
+          if (x >= rect.right - 18 && x <= rect.right + 4) {
+            overScrollbar = true;
+          }
+        }
+
         // Morph target check (e.g., song cards)
         const morphEl = target.closest('[data-cursor-morph="true"]') as HTMLElement | null;
         morphTargetRef.current = morphEl;
 
-        // Completely hide blob when hovering over avatar
+        // Completely hide blob when hovering over avatar or scrollbar
         const isAvatar = Boolean(target.closest('[data-avatar="true"], .avatar-container'));
-        hideBlobRef.current = isAvatar;
+        hideBlobRef.current = isAvatar || overScrollbar;
 
         // Interactive element check for subtle follower size increase
         const isInteractive = Boolean(
           target.closest('a, button, input, [role="button"], .cursor-pointer, [onClick]')
         );
         isHoveredRef.current = isInteractive;
+      } else {
+        hideBlobRef.current = overScrollbar;
       }
 
       // Update black pinpoint dot instantly (0ms latency)
@@ -67,25 +91,19 @@ export const CustomCursor: React.FC = () => {
         const dotScale = isClickingRef.current ? 0.75 : isHoveredRef.current ? 1.3 : 1;
         dotElRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${dotScale})`;
         if (isWindowVisibleRef.current) {
-          dotElRef.current.style.opacity = '1';
+          dotElRef.current.style.opacity = overScrollbar ? '0' : '1';
         }
       }
     };
 
-    const onMouseDown = () => {
+    const onPointerDown = (e: PointerEvent | MouseEvent) => {
       isClickingRef.current = true;
-      if (dotElRef.current) {
-        dotElRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0) scale(0.75)`;
-      }
+      updatePointerPosition(e);
     };
 
-    const onMouseUp = () => {
+    const onPointerUp = (e: PointerEvent | MouseEvent) => {
       isClickingRef.current = false;
-      if (dotElRef.current) {
-        dotElRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${
-          mouseRef.current.y
-        }px, 0) scale(${isHoveredRef.current ? 1.3 : 1})`;
-      }
+      updatePointerPosition(e);
     };
 
     const onMouseLeave = () => {
@@ -98,11 +116,52 @@ export const CustomCursor: React.FC = () => {
       if (dotElRef.current) dotElRef.current.style.opacity = '1';
     };
 
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mouseup', onMouseUp);
+    // Use capturing pointermove and mousemove listeners for smooth 1:1 hardware mouse tracking
+    window.addEventListener('pointermove', updatePointerPosition, { capture: true, passive: true });
+    window.addEventListener('mousemove', updatePointerPosition, { capture: true, passive: true });
+    window.addEventListener('dragover', updatePointerPosition, { capture: true, passive: true });
+
+    window.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true });
+    window.addEventListener('pointerup', onPointerUp, { capture: true, passive: true });
+    window.addEventListener('mousedown', onPointerDown, { capture: true, passive: true });
+    window.addEventListener('mouseup', onPointerUp, { capture: true, passive: true });
+
     document.body.addEventListener('mouseleave', onMouseLeave);
     document.body.addEventListener('mouseenter', onMouseEnter);
+
+    // Scroll listener to update cursor hover state when element under cursor moves during scroll
+    const onScroll = () => {
+      if (!isClickingRef.current && mouseRef.current.x >= 0 && mouseRef.current.y >= 0) {
+        const x = mouseRef.current.x;
+        const y = mouseRef.current.y;
+        const el = document.elementFromPoint(x, y) as HTMLElement | null;
+        let overScrollbar = x >= window.innerWidth - 18;
+
+        if (el) {
+          const scrollContainer = el.closest('.overflow-y-auto, .custom-scrollbar') as HTMLElement | null;
+          if (scrollContainer && scrollContainer.scrollHeight > scrollContainer.clientHeight + 1) {
+            const rect = scrollContainer.getBoundingClientRect();
+            if (x >= rect.right - 18 && x <= rect.right + 4) {
+              overScrollbar = true;
+            }
+          }
+
+          const morphEl = el.closest('[data-cursor-morph="true"]') as HTMLElement | null;
+          morphTargetRef.current = morphEl;
+          hideBlobRef.current = Boolean(el.closest('[data-avatar="true"], .avatar-container')) || overScrollbar;
+          isHoveredRef.current = Boolean(el.closest('a, button, input, [role="button"], .cursor-pointer, [onClick]'));
+        } else {
+          morphTargetRef.current = null;
+          isHoveredRef.current = false;
+          hideBlobRef.current = overScrollbar;
+        }
+
+        if (dotElRef.current && isWindowVisibleRef.current) {
+          dotElRef.current.style.opacity = overScrollbar ? '0' : '1';
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
 
     const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor;
 
@@ -111,7 +170,29 @@ export const CustomCursor: React.FC = () => {
         const mouseX = mouseRef.current.x;
         const mouseY = mouseRef.current.y;
 
-        const morphEl = morphTargetRef.current;
+        // Verify if active morph target is still valid and pointer is within bounds
+        // Crucial: While clicking or holding mouse down (holding scrollbar / drag), DO NOT lock to morph target so cursor stays free!
+        let morphEl = isClickingRef.current ? null : morphTargetRef.current;
+        if (morphEl) {
+          if (!document.body.contains(morphEl)) {
+            morphTargetRef.current = null;
+            morphEl = null;
+          } else {
+            const rect = morphEl.getBoundingClientRect();
+            const threshold = 16; // Margin threshold
+            const isInside =
+              mouseX >= rect.left - threshold &&
+              mouseX <= rect.right + threshold &&
+              mouseY >= rect.top - threshold &&
+              mouseY <= rect.bottom + threshold;
+
+            if (!isInside) {
+              morphTargetRef.current = null;
+              morphEl = null;
+            }
+          }
+        }
+
         const shouldHide = hideBlobRef.current || !isWindowVisibleRef.current;
 
         let targetX: number;
@@ -122,7 +203,7 @@ export const CustomCursor: React.FC = () => {
 
         if (morphEl && !shouldHide) {
           const rect = morphEl.getBoundingClientRect();
-          const pad = 8; // Expand 8px beyond the card so white blob fully covers edges even on fast movement
+          const pad = 8; // Expand 8px beyond the card so white blob fully covers edges
           targetX = rect.left - pad;
           targetY = rect.top - pad;
           targetW = rect.width + pad * 2;
@@ -132,8 +213,8 @@ export const CustomCursor: React.FC = () => {
           const parsedRadius = parseFloat(computedStyle.borderRadius);
           targetRadius = (isNaN(parsedRadius) ? 16 : parsedRadius) + pad;
         } else {
-          // Normal circular cursor follower
-          const size = isHoveredRef.current ? 64 : 48;
+          // Normal circular cursor follower - always free and natural
+          const size = isClickingRef.current ? 36 : isHoveredRef.current ? 64 : 48;
           targetW = size;
           targetH = size;
           targetX = mouseX - size / 2;
@@ -143,16 +224,16 @@ export const CustomCursor: React.FC = () => {
 
         const targetOpacity = shouldHide ? 0 : 1;
 
-        // Smooth convergence physics lerp - responsive factor when locked to morph target
+        // Smooth convergence physics lerp - 0.2 factor for smooth fluid feeling
         const curr = currentBlobRef.current;
-        const factor = morphEl ? 0.28 : 0.15;
+        const factor = morphEl ? 0.28 : 0.22;
 
         curr.x = lerp(curr.x, targetX, factor);
         curr.y = lerp(curr.y, targetY, factor);
         curr.w = lerp(curr.w, targetW, factor);
         curr.h = lerp(curr.h, targetH, factor);
         curr.radius = lerp(curr.radius, targetRadius, factor);
-        curr.opacity = lerp(curr.opacity, targetOpacity, 0.2);
+        curr.opacity = lerp(curr.opacity, targetOpacity, 0.25);
 
         blobElRef.current.style.transform = `translate3d(${curr.x.toFixed(2)}px, ${curr.y.toFixed(2)}px, 0)`;
         blobElRef.current.style.width = `${curr.w.toFixed(2)}px`;
@@ -167,9 +248,16 @@ export const CustomCursor: React.FC = () => {
     animationFrameRef.current = requestAnimationFrame(animateBlob);
 
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('pointermove', updatePointerPosition, { capture: true } as any);
+      window.removeEventListener('mousemove', updatePointerPosition, { capture: true } as any);
+      window.removeEventListener('dragover', updatePointerPosition, { capture: true } as any);
+
+      window.removeEventListener('pointerdown', onPointerDown, { capture: true } as any);
+      window.removeEventListener('pointerup', onPointerUp, { capture: true } as any);
+      window.removeEventListener('mousedown', onPointerDown, { capture: true } as any);
+      window.removeEventListener('mouseup', onPointerUp, { capture: true } as any);
+
+      window.removeEventListener('scroll', onScroll, { capture: true } as any);
       document.body.removeEventListener('mouseleave', onMouseLeave);
       document.body.removeEventListener('mouseenter', onMouseEnter);
       if (animationFrameRef.current) {

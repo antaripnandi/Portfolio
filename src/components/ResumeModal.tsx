@@ -294,15 +294,27 @@ const CV_HTML_CONTENT = `<!DOCTYPE html>
 </html>`;
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
-  // Disable body scroll when modal is open
+  // Prevent background scrolling & stop Lenis when Resume modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+      }
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [isOpen]);
 
@@ -438,7 +450,12 @@ LANGUAGES & INTERESTS
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[300] flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto">
+        <div
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+          data-lenis-prevent-touch
+          className="fixed inset-0 z-[300] flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto"
+        >
           {/* Print specific CSS override */}
           <style>{`
             @media print {
@@ -556,7 +573,13 @@ LANGUAGES & INTERESTS
             </div>
 
             {/* Resume Content Body */}
-            <div className="p-5 sm:p-8 md:p-10 overflow-y-auto space-y-8 text-[#eae1db] font-sans-body" id="printable-cv-area">
+            <div
+              data-lenis-prevent
+              data-lenis-prevent-wheel
+              data-lenis-prevent-touch
+              className="p-5 sm:p-8 md:p-10 overflow-y-auto overscroll-contain custom-scrollbar space-y-8 text-[#eae1db] font-sans-body"
+              id="printable-cv-area"
+            >
               {/* CV Header */}
               <div className="border-b border-white/10 pb-6 cv-header">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">

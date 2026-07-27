@@ -33,6 +33,13 @@ export default function App() {
       wheelMultiplier: 1.0,
       touchMultiplier: 1.2,
       infinite: false,
+      prevent: (node) => {
+        return (
+          node.hasAttribute('data-lenis-prevent') ||
+          node.closest('[data-lenis-prevent]') !== null ||
+          node.classList.contains('overflow-y-auto')
+        );
+      },
     });
 
     // Attach to window so components/navbars can trigger lenis.scrollTo()

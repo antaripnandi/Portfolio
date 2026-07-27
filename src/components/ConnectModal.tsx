@@ -97,15 +97,27 @@ const TiltCard: React.FC<TiltCardProps> = ({ children, onClick, href, className 
 export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) => {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
 
-  // Prevent background scrolling when Connect modal is open
+  // Prevent background scrolling & stop Lenis when Connect modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+      }
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [isOpen]);
 
@@ -180,7 +192,10 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto custom-scrollbar bg-[#14110e] border border-white/10 rounded-2xl p-5 sm:p-8 md:p-9 shadow-2xl z-10"
+            data-lenis-prevent
+            data-lenis-prevent-wheel
+            data-lenis-prevent-touch
+            className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto overscroll-contain custom-scrollbar bg-[#14110e] border border-white/10 rounded-2xl p-5 sm:p-8 md:p-9 shadow-2xl z-10"
           >
             {/* Soft subtle warm top radial glow */}
             <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-36 bg-[#f2c08d]/10 blur-3xl pointer-events-none rounded-full" />
@@ -193,7 +208,6 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
             >
               <span className="material-symbols-outlined text-base">close</span>
             </button>
-
 
             {/* Modal Header */}
             <div className="mb-6 sm:mb-8 text-left pr-8">

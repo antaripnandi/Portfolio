@@ -44,7 +44,7 @@
 
   /* Custom Cursor override for fine pointers */
   @media (pointer: fine) {
-    body, a, button, input, [role="button"], .cursor-pointer {
+    *, ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
       cursor: none !important;
     }
   }
@@ -152,35 +152,44 @@
 
 /* Custom thin dark scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
+  cursor: auto !important;
 }
 ::-webkit-scrollbar-track {
   background: #16130f;
+  cursor: auto !important;
 }
 ::-webkit-scrollbar-thumb {
   background: #393430;
-  border-radius: 3px;
+  border-radius: 4px;
+  cursor: auto !important;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #d4a574;
+  cursor: auto !important;
 }
 
 /* Custom Scrollbar for dark modal frames */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
+  cursor: auto !important;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(22, 19, 15, 0.4);
   border-radius: 9999px;
-  margin: 12px 0;
+  margin: 8px 0;
+  cursor: auto !important;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(242, 192, 141, 0.3);
+  background: rgba(242, 192, 141, 0.35);
   border-radius: 9999px;
+  cursor: auto !important;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(242, 192, 141, 0.6);
+  background: rgba(242, 192, 141, 0.7);
+  cursor: auto !important;
 }
 
 /* Print Stylesheet for clean paper PDF rendering */
