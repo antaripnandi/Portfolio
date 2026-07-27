@@ -6,6 +6,293 @@ interface ResumeModalProps {
   onClose: () => void;
 }
 
+const CV_HTML_CONTENT = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antarip_Nandi_CV</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #14171A;
+      --body-text: #3A3F44;
+      --muted: #767C82;
+      --paper: #FFFFFF;
+      --panel: #F5F7F5;
+      --accent: #1E6B54;
+      --accent-soft: #E7F1EC;
+      --rule: #E1E4E1;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--body-text);
+      background: var(--paper);
+      padding: 44px;
+      max-width: 820px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    .contact-bar {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .contact-bar a { color: var(--ink); text-decoration: none; font-weight: 600; }
+    .contact-bar .sep { color: var(--rule); }
+
+    .bio {
+      margin-top: 16px;
+      background: var(--panel);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 5px 5px 0;
+      padding: 12px 16px;
+    }
+    .bio .cmt {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .bio p {
+      font-size: 12.5px;
+      color: var(--body-text);
+    }
+
+    .section-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 5px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .section-title .cmt { color: var(--muted); opacity: 0.7; font-weight: 500; margin-right: 4px; }
+
+    .edu-header, .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .edu-title, .project-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .desc {
+      font-size: 12px;
+      color: var(--body-text);
+      margin-top: 3px;
+      line-height: 1.55;
+    }
+
+    .skills-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .skill-block-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+    .skill-block-label .muted-note {
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .skill-tag {
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      color: var(--body-text);
+    }
+    .skill-tag.learning {
+      border-style: dashed;
+      border-color: #C9CFC9;
+      background: var(--panel);
+      color: var(--muted);
+    }
+
+    @media print {
+      body { padding: 0; max-width: 100%; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Antarip Nandi</h1>
+    <div class="tag">CS Undergraduate — AI &amp; ML</div>
+    <div class="contact-bar">
+      <span>Siliguri / Chennai, India</span>
+      <span class="sep">·</span>
+      <a href="mailto:bantarip4@gmail.com">bantarip4@gmail.com</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/antaripnandi" target="_blank">github.com/antaripnandi</a>
+    </div>
+    <div class="bio">
+      <span class="cmt">/* about */</span>
+      <p><strong style="color: var(--ink);">Self-taught builder before I took a single CS class:</strong> a multi-agent AI framework, Java Minecraft mods, and a from-scratch Sudoku solver, all written in the two years before starting my degree. Now a first-year B.Tech CS student (AI &amp; ML) at SRM, filling in the theory behind what I already know how to build.</p>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="cmt">//</span>Education</div>
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <div>
+      <div class="edu-header">
+        <div class="edu-title">SRM Institute of Science and Technology</div>
+        <div class="date">2026 – 2030 | Chennai, India</div>
+      </div>
+      <div class="desc">B.Tech in Computer Science & Engineering — specialization in Artificial Intelligence & Machine Learning</div>
+    </div>
+    <div>
+      <div class="edu-header">
+        <div class="edu-title">Birla Divya Jyoti (CBSE) &amp; Don Bosco School (ICSE), Siliguri</div>
+        <div class="date">2012 – 2026</div>
+      </div>
+      <div class="desc">Kindergarten through Class XII</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="cmt">//</span>Technical Skills</div>
+  <div class="skills-wrap">
+    <div>
+      <div class="skill-block-label">Core — Hands-On</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML5 / CSS3</span>
+        <span class="skill-tag">Git / GitHub</span>
+        <span class="skill-tag">Linux (Bash)</span>
+        <span class="skill-tag">Multi-Agent Architecture</span>
+        <span class="skill-tag">Constraint Solvers</span>
+        <span class="skill-tag">DaVinci Resolve</span>
+        <span class="skill-tag">SQL (MySQL)</span>
+        <span class="skill-tag">Tailwind CSS</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-block-label">Currently Learning <span class="muted-note">— studied, not yet used in a shipped project</span></div>
+      <div class="skill-tags">
+        <span class="skill-tag learning">PyTorch</span>
+        <span class="skill-tag learning">TypeScript</span>
+        <span class="skill-tag learning">React</span>
+        <span class="skill-tag learning">Node.js</span>
+        <span class="skill-tag learning">Express</span>
+        <span class="skill-tag learning">Vite</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="cmt">//</span>Featured Projects</div>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div>
+      <div class="project-header">
+        <div class="project-title">OpenClaw — Multi-Agent AI Framework (Personal Project)</div>
+        <div class="date">2026</div>
+      </div>
+      <div class="desc"><strong style="color: var(--ink);">Agents that hand off work to each other.</strong> Coordinates multiple AI agents over JSON-RPC and runs their shell commands inside a sandbox, so one misbehaving agent can't touch the host system. <em>(Note: This is a personal project and will not be released.)</em></div>
+    </div>
+
+    <div>
+      <div class="project-header">
+        <div class="project-title">Interactive Personal Portfolio Website</div>
+        <div class="date">2026</div>
+      </div>
+      <div class="desc"><strong style="color: var(--ink);">A project showcase with a live CV export.</strong> Personally styled portfolio site built with Tailwind CSS — featuring my work, a browser game, and a CV page that exports straight to PDF, the exact file you're reading now.</div>
+    </div>
+
+    <div>
+      <div class="project-header">
+        <div class="project-title">Minecraft Modding Suite (Java)</div>
+        <div class="date">2026</div>
+      </div>
+      <div class="desc"><strong style="color: var(--ink);">4,000+ downloads across four published mods.</strong> Barrel Extender and Bigger Ender Chest expand storage, F3 Advance adds detail to the debug screen, and Veinminer Crouch mines a full connected vein when you crouch — all built and published independently.</div>
+    </div>
+
+    <div>
+      <div class="project-header">
+        <div class="project-title">Interactive Sudoku Engine & Solver</div>
+        <div class="date">2025</div>
+      </div>
+      <div class="desc"><strong style="color: var(--ink);">A Sudoku engine with zero front-end dependencies.</strong> Seeded puzzle generation, live conflict checking as you type, and difficulty-scaled hints in plain JavaScript, backed by a MySQL leaderboard tracking best solve times.</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="cmt">//</span>Languages & Interests</div>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; font-size: 11.5px; color: var(--body-text);">
+    <div>
+      <strong style="color: var(--ink);">Languages Spoken:</strong><br>
+      English (Fluent), Hindi (Fluent), Bengali (Native)
+    </div>
+    <div>
+      <strong style="color: var(--ink);">Outside Class:</strong><br>
+      Video editing (DaVinci Resolve), open-source AI tooling, game engine internals
+    </div>
+  </div>
+</body>
+</html>`;
+
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
   // Disable body scroll when modal is open
   useEffect(() => {
@@ -30,263 +317,55 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  const handleDownloadPdf = () => {
-    // 1. First attempt native print if allowed
+  const handlePrintPdf = () => {
     try {
-      window.print();
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.style.zIndex = '-9999';
+      document.body.appendChild(iframe);
+
+      const doc = iframe.contentWindow?.document || iframe.contentDocument;
+      if (doc) {
+        doc.open();
+        doc.write(CV_HTML_CONTENT);
+        doc.close();
+
+        setTimeout(() => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+          } catch (e) {
+            console.error('Print trigger error:', e);
+            window.print();
+          } finally {
+            setTimeout(() => {
+              if (document.body.contains(iframe)) {
+                document.body.removeChild(iframe);
+              }
+            }, 1000);
+          }
+        }, 300);
+      }
     } catch {
-      // ignore fallback below
+      window.print();
     }
+  };
 
-    // 2. Open standalone print-friendly window with auto-print for iframe environments
-    const htmlContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antarip_Nandi_CV</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #111111;
-      background: #ffffff;
-      padding: 40px;
-      max-width: 850px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      text-transform: uppercase;
-      color: #000000;
-    }
-    .subtitle {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: #d97706;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 4px;
-    }
-    .contact-bar {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      color: #555555;
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .contact-bar a { color: #111111; text-decoration: none; font-weight: 600; }
-    .bio {
-      font-size: 13px;
-      color: #444444;
-      margin-top: 12px;
-      border-bottom: 1.5px solid #111111;
-      padding-bottom: 14px;
-    }
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #111111;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 4px;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-    .edu-header, .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-    .edu-title, .project-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #111111;
-    }
-    .date {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #d97706;
-    }
-    .desc {
-      font-size: 12px;
-      color: #444444;
-      margin-top: 3px;
-    }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .skill-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 8px 12px;
-      background: #f9fafb;
-    }
-    .skill-type {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #d97706;
-      text-transform: uppercase;
-    }
-    .skill-val {
-      font-size: 11.5px;
-      color: #333333;
-      margin-top: 2px;
-    }
-    @media print {
-      body { padding: 0; max-width: 100%; }
-      .no-print { display: none !important; }
-    }
-  </style>
-</head>
-<body>
-  <div class="no-print" style="margin-bottom: 20px; padding: 12px 16px; background: #fffbe0; border: 1px solid #fcd34d; border-radius: 8px; font-family: sans-serif; font-size: 13px; display: flex; justify-content: space-between; align-items: center;">
-    <span>📄 <strong>Print & PDF Mode:</strong> Select <strong>"Save as PDF"</strong> in your browser's print menu to save this CV as a PDF file.</span>
-    <button onclick="window.print()" style="padding: 6px 14px; background: #111; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Save as PDF</button>
-  </div>
-
-  <div>
-    <h1>ANTARIP NANDI</h1>
-    <div class="subtitle">AI Systems & Software Engineer</div>
-    <div class="contact-bar">
-      <span>📍 Siliguri / Chennai, India</span>
-      <span>✉️ <a href="mailto:bantarip4@gmail.com">bantarip4@gmail.com</a></span>
-      <span>💻 <a href="https://github.com/antaripnandi" target="_blank">github.com/antaripnandi</a></span>
-    </div>
-    <div class="bio">
-      First-year Computer Science undergraduate student specializing in Artificial Intelligence and Machine Learning. Passionate about building high-performance AI agent frameworks, interactive web engines, low-level solvers, and creative gameplay mechanics.
-    </div>
-  </div>
-
-  <div class="section-title">01 // EDUCATION</div>
-  <div style="display: flex; flex-direction: column; gap: 10px;">
-    <div>
-      <div class="edu-header">
-        <div class="edu-title">Don Bosco School, Siliguri</div>
-        <div class="date">2012 – 2024 | Siliguri, India</div>
-      </div>
-      <div class="desc">Primary & Secondary Education (Kindergarten to Class X) — ICSE Board</div>
-    </div>
-    <div>
-      <div class="edu-header">
-        <div class="edu-title">Birla Divya Jyoti, Siliguri</div>
-        <div class="date">2024 – 2026 | Siliguri, India</div>
-      </div>
-      <div class="desc">Higher Secondary Education (Class XI & XII) — CBSE Board</div>
-    </div>
-    <div>
-      <div class="edu-header">
-        <div class="edu-title">SRM Institute of Science and Technology</div>
-        <div class="date">2026 – 2030 | Chennai, India</div>
-      </div>
-      <div class="desc">Bachelor of Technology (B.Tech) in Computer Science & Engineering — Specialization in Artificial Intelligence & Machine Learning</div>
-    </div>
-  </div>
-
-  <div class="section-title">02 // TECHNICAL SKILLS</div>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-type">Programming Languages</div>
-      <div class="skill-val">Python, Java, C++, TypeScript, JavaScript, SQL (MySQL), HTML5/CSS3</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-type">AI & Systems Design</div>
-      <div class="skill-val">PyTorch, Multi-Agent Architecture, Backtracking & Constraint Solvers</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-type">Web Technologies</div>
-      <div class="skill-val">React, Node.js, Express, Tailwind CSS, Vite, RESTful APIs</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-type">Tools & Creative Software</div>
-      <div class="skill-val">Git / GitHub, Linux (Bash), Minecraft Modding API (Java), DaVinci Resolve</div>
-    </div>
-  </div>
-
-  <div class="section-title">03 // FEATURED PROJECTS</div>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div>
-      <div class="project-header">
-        <div class="project-title">OPENCLAW — Multi-Agent AI Framework</div>
-        <div class="date">2026</div>
-      </div>
-      <div class="desc">Engineered an autonomous multi-agent orchestration framework enabling AI agents to coordinate, parse JSON RPC task streams, and execute system commands safely in sandboxed environments.</div>
-    </div>
-
-    <div>
-      <div class="project-header">
-        <div class="project-title">Minecraft Modding Suite (Java)</div>
-        <div class="date">2026</div>
-      </div>
-      <div class="desc">Architected custom Java gameplay modifications incorporating custom mob artificial intelligence, item crafting pipelines, and custom rendering shaders.</div>
-    </div>
-
-    <div>
-      <div class="project-header">
-        <div class="project-title">Interactive Sudoku Engine & Solver</div>
-        <div class="date">2025</div>
-      </div>
-      <div class="desc">Created a zero-dependency web Sudoku engine featuring fast randomized seed generation, real-time grid conflict detection, hint budget allocations based on difficulty level, and mobile touch optimization.</div>
-    </div>
-
-    <div>
-      <div class="project-header">
-        <div class="project-title">Interactive Personal Portfolio Website</div>
-        <div class="date">2026</div>
-      </div>
-      <div class="desc">Designed and developed a dark editorial personal website featuring interactive mini-games, dynamic music recommendations, custom animations, and clean CV preview and export options.</div>
-    </div>
-  </div>
-
-  <div class="section-title">04 // LANGUAGES & ADDITIONAL INTERESTS</div>
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; font-size: 11.5px; color: #444;">
-    <div>
-      <strong>Languages Spoken:</strong><br>
-      English (Fluent), Hindi (Fluent), Bengali (Native)
-    </div>
-    <div>
-      <strong>Creative & Tech Hobbies:</strong><br>
-      Video Editing (DaVinci Resolve), Open Source AI, Game Engine Mechanics
-    </div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      setTimeout(function() {
-        window.print();
-      }, 300);
-    };
-  </script>
-</body>
-</html>`;
-
-    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-    const blobUrl = URL.createObjectURL(blob);
-    const printWindow = window.open(blobUrl, '_blank');
-    if (!printWindow) {
-      // Fallback download HTML file if popup is blocked
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = 'Antarip_Nandi_CV.html';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+  const handleDownloadHtml = () => {
+    const blob = new Blob([CV_HTML_CONTENT], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Antarip_Nandi_CV.html';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const handleDownloadTxt = () => {
@@ -427,28 +506,48 @@ LANGUAGES & INTERESTS
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
-                  onClick={handleDownloadPdf}
+                  onClick={handlePrintPdf}
                   className="px-3.5 py-1.5 bg-[#f2c08d] text-[#16130f] hover:bg-[#e0b07d] rounded-lg font-mono-tech text-xs font-bold uppercase transition flex items-center gap-1.5 cursor-pointer shadow active:scale-95"
-                  title="Save or Download PDF"
+                  title="Print or Save CV as PDF"
                 >
-                  <span className="material-symbols-outlined text-sm">download</span>
+                  <span className="material-symbols-outlined text-sm">print</span>
                   <span>Save as PDF</span>
                 </button>
 
                 <button
-                  onClick={handleDownloadTxt}
-                  className="px-3 py-1.5 bg-white/5 hover:bg-white/15 border border-white/10 text-[#d4c4b7] hover:text-white rounded-lg font-mono-tech text-xs uppercase transition flex items-center gap-1.5 cursor-pointer active:scale-95"
-                  title="Download clean plain text CV"
+                  onClick={handleDownloadHtml}
+                  className="px-2.5 sm:px-3 py-1.5 bg-white/5 hover:bg-white/15 border border-white/10 text-[#d4c4b7] hover:text-white rounded-lg font-mono-tech text-xs uppercase transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                  title="Download HTML CV file"
                 >
-                  <span className="material-symbols-outlined text-sm">text_snippet</span>
-                  <span className="hidden sm:inline">Text CV</span>
+                  <span className="material-symbols-outlined text-sm">download</span>
+                  <span className="hidden sm:inline">HTML CV</span>
                 </button>
 
                 <button
+                  onClick={handleDownloadTxt}
+                  className="px-2.5 sm:px-3 py-1.5 bg-white/5 hover:bg-white/15 border border-white/10 text-[#d4c4b7] hover:text-white rounded-lg font-mono-tech text-xs uppercase transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                  title="Download clean plain text CV"
+                >
+                  <span className="material-symbols-outlined text-sm">text_snippet</span>
+                  <span className="hidden md:inline">Text CV</span>
+                </button>
+
+                <a
+                  href="https://github.com/antaripnandi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 sm:px-3 py-1.5 bg-white/5 hover:bg-white/15 border border-white/10 text-[#d4c4b7] hover:text-white rounded-lg font-mono-tech text-xs uppercase transition flex items-center gap-1.5 cursor-pointer active:scale-95 no-underline"
+                  title="View GitHub Files"
+                >
+                  <span className="material-symbols-outlined text-sm">code</span>
+                  <span className="hidden md:inline">GitHub</span>
+                </a>
+
+                <button
                   onClick={onClose}
-                  className="p-1.5 bg-white/5 hover:bg-white/15 text-[#d4c4b7] hover:text-white rounded-lg transition cursor-pointer"
+                  className="p-1.5 bg-white/5 hover:bg-white/15 text-[#d4c4b7] hover:text-white rounded-lg transition cursor-pointer ml-1"
                   title="Close Modal"
                 >
                   <span className="material-symbols-outlined text-base">close</span>
@@ -608,7 +707,7 @@ LANGUAGES & INTERESTS
                       <span className="font-mono-tech text-[11px] text-[#f2c08d] cv-accent">2026</span>
                     </div>
                     <p className="text-xs text-[#d4c4b7]/90 leading-relaxed cv-text-muted">
-                      Engineered an autonomous multi-agent orchestration framework enabling AI agents to coordinate, parse JSON RPC task streams, and execute system commands safely in sandboxed environments.
+                      Engineered an autonomous multi-agent orchestration framework enabling AI agents to coordinate, parse JSON RPC task streams, and execute system commands safely in sandboxed environments. <em>(Note: This is a personal project and will not be released.)</em>
                     </p>
                   </div>
 

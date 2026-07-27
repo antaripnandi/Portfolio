@@ -23,11 +23,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished 
     setIsOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      try {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } catch {
-        const top = element.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top, behavior: 'smooth' });
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(element, { offset: -20, duration: 1.2 });
+      } else {
+        try {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } catch {
+          const top = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
       }
     }
   };

@@ -183,3 +183,28 @@
   background: rgba(242, 192, 141, 0.6);
 }
 
+/* Print Stylesheet for clean paper PDF rendering */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    overflow: visible !important;
+  }
+
+  .no-print, nav, footer, header, #splash-overlay {
+    display: none !important;
+  }
+
+  .cv-accent {
+    color: #000000 !important;
+  }
+
+  .cv-text-muted {
+    color: #333333 !important;
+  }
+
+  .cv-border {
+    border-color: #cccccc !important;
+  }
+}
+

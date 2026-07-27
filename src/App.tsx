@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Project } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
@@ -18,6 +21,36 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [splashFinished, setSplashFinished] = useState<boolean>(false);
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+
+  // Initialize Lenis smooth inertia scrolling across desktop, mobile, tablet, laptop, etc.
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
+      infinite: false,
+    });
+
+    // Attach to window so components/navbars can trigger lenis.scrollTo()
+    (window as any).lenis = lenis;
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as any).lenis;
+    };
+  }, []);
 
   useEffect(() => {
     // Disable browser automatic scroll restoration on reload
@@ -40,25 +73,45 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.25,
-      rootMargin: '-20% 0px -40% 0px'
-    };
+    const handleScroll = () => {
+      const sectionIds = ['about', 'work', 'now', 'beyond'];
+      const viewportMid = window.innerHeight * 0.35; // 35% from top of viewport
+      let currentSection = 'about';
 
-    const handleIntersect: IntersectionObserverCallback = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= viewportMid && rect.bottom >= viewportMid) {
+            currentSection = id;
+            break;
+          }
         }
-      });
+      }
+
+      // Special check if user is at the bottom of the page
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        currentSection = 'beyond';
+      }
+
+      setActiveSection(currentSection);
     };
 
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
 
-    const sections = document.querySelectorAll('#about, #work, #now, #beyond');
-    sections.forEach(sec => observer.observe(sec));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    handleScroll();
 
-    return () => observer.disconnect();
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -104,6 +157,9 @@ export default function App() {
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
       />
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 }

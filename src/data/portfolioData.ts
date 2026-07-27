@@ -97,9 +97,9 @@ export const PROJECTS_DATA: Project[] = [
     title: 'OPENCLAW',
     year: '2026',
     category: 'AI AGENT ECOSYSTEM',
-    description: 'A multi-agent framework built for AI agent coordination and autonomous task execution.',
+    description: 'A multi-agent framework built for AI agent coordination and autonomous task execution. (Personal project; will not be released.)',
     tags: ['Python', 'Multi-Agent', 'LLM'],
-    longDescription: 'OpenClaw is a framework designed for coordinating multiple AI agents. It manages over 100 specialized micro-agents that handle task planning, tool execution, memory storage, and real-time execution feedback.',
+    longDescription: 'OpenClaw is a framework designed for coordinating multiple AI agents. It manages over 100 specialized micro-agents that handle task planning, tool execution, memory storage, and real-time execution feedback. Note: This is a personal project and will not be released.',
     features: [
       '100+ specialized domain agents operating in parallel',
       'Long-term memory storage with fast vector retrieval',

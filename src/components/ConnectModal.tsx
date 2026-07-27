@@ -14,11 +14,11 @@ interface TiltCardProps {
 }
 
 const TiltCard: React.FC<TiltCardProps> = ({ children, onClick, href, className = '' }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
   const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50, opacity: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -43,14 +43,6 @@ const TiltCard: React.FC<TiltCardProps> = ({ children, onClick, href, className 
     setGlowPos((prev) => ({ ...prev, opacity: 0 }));
   };
 
-  const commonProps = {
-    ref: cardRef,
-    onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave,
-    style: { transform, transition: 'transform 0.15s ease-out, box-shadow 0.3s ease' },
-    className: `relative block w-full rounded-xl border border-white/10 hover:border-[#f2c08d]/60 bg-[#1e1a16] p-5 sm:p-6 text-left transition-colors duration-300 group overflow-hidden ${className}`
-  };
-
   const innerElement = (
     <>
       {/* Dynamic Cursor Spotlight Glow */}
@@ -67,16 +59,36 @@ const TiltCard: React.FC<TiltCardProps> = ({ children, onClick, href, className 
     </>
   );
 
+  const cardClassName = `relative block w-full rounded-xl border border-white/10 hover:border-[#f2c08d]/60 bg-[#1e1a16] p-5 sm:p-6 text-left transition-colors duration-300 group overflow-hidden ${className}`;
+
   if (href) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" {...commonProps}>
+      <a
+        ref={cardRef as React.RefObject<HTMLAnchorElement>}
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ transform, transition: 'transform 0.15s ease-out, box-shadow 0.3s ease' }}
+        className={cardClassName}
+      >
         {innerElement}
       </a>
     );
   }
 
   return (
-    <div onClick={onClick} role="button" tabIndex={0} {...commonProps}>
+    <div
+      ref={cardRef as React.RefObject<HTMLDivElement>}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ transform, transition: 'transform 0.15s ease-out, box-shadow 0.3s ease' }}
+      className={cardClassName}
+    >
       {innerElement}
     </div>
   );
@@ -96,6 +108,17 @@ export const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose }) =
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  // Handle ESC key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const handleDiscordCopy = () => {
     navigator.clipboard.writeText('e5g._');

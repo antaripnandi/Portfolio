@@ -158,6 +158,7 @@ export const SudokuGame: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [isWon, setIsWon] = useState(false);
+  const [dismissedVictory, setDismissedVictory] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
   // Memoize conflicts so they only recompute when board changes
@@ -181,6 +182,7 @@ export const SudokuGame: React.FC = () => {
     setIsPaused(false);
     setHintsUsed(0);
     setIsWon(false);
+    setDismissedVictory(false);
     setMessage('New board generated!');
     setTimeout(() => setMessage(null), 2000);
   };
@@ -561,7 +563,7 @@ export const SudokuGame: React.FC = () => {
       </div>
 
       {/* Victory Celebration Overlay */}
-      {isWon && (
+      {isWon && !dismissedVictory && (
         <div className="absolute inset-0 z-40 bg-[#16130f]/95 backdrop-blur-md flex flex-col items-center justify-center space-y-3.5 p-5 text-center">
           <div className="w-12 h-12 rounded-full bg-[#f2c08d]/20 border border-[#f2c08d] flex items-center justify-center text-[#f2c08d]">
             <span className="material-symbols-outlined text-2xl">workspace_premium</span>
@@ -596,10 +598,17 @@ export const SudokuGame: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex gap-2 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+            <button
+              onClick={() => setDismissedVictory(true)}
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg font-mono-tech text-xs uppercase font-bold text-[#eae1db] transition cursor-pointer touch-manipulation"
+              title="Inspect solved board"
+            >
+              View Board
+            </button>
             <button
               onClick={() => setDifficulty(null)}
-              className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg font-mono-tech text-xs uppercase font-bold text-[#eae1db] transition cursor-pointer touch-manipulation"
+              className="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg font-mono-tech text-xs uppercase font-bold text-[#eae1db] transition cursor-pointer touch-manipulation"
             >
               Difficulty
             </button>
@@ -610,6 +619,19 @@ export const SudokuGame: React.FC = () => {
               New Game
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Small Banner when Victory is dismissed */}
+      {isWon && dismissedVictory && (
+        <div className="mt-3 flex items-center justify-between bg-[#f2c08d]/15 border border-[#f2c08d]/30 px-3.5 py-2 rounded-lg font-mono-tech text-xs text-[#f2c08d]">
+          <span>🎉 Puzzle Solved!</span>
+          <button
+            onClick={() => setDismissedVictory(false)}
+            className="underline font-bold text-white hover:text-[#f2c08d] ml-2 cursor-pointer"
+          >
+            View Stats
+          </button>
         </div>
       )}
     </div>

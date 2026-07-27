@@ -21,6 +21,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     };
   }, [project]);
 
+  // Handle ESC key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && project) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [project, onClose]);
+
   if (!project) return null;
 
   return (

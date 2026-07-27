@@ -54,6 +54,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
     };
   }, [isSplashFinished]);
 
+  // Handle ESC key press for Avatar preview modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && previewAvatar) {
+        setPreviewAvatar(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previewAvatar]);
+
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
   // Magnetic hover effect & cursor tracking
@@ -128,7 +139,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
         <div className="relative flex flex-col items-center pointer-events-auto">
           {/* Name Container with Smooth Transition */}
           <div
-            className={`font-anton text-[clamp(2.8rem,13vw,11rem)] leading-[0.9] text-[#eae1db] flex flex-col items-center tracking-tight select-none transition-all duration-1000 ease-out ${
+            className={`font-anton text-[clamp(3.8rem,15.5vw,11rem)] leading-[0.88] text-[#eae1db] flex flex-col items-center tracking-tight select-none transition-all duration-1000 ease-out ${
               nameLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
@@ -140,7 +151,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
 
               {/* Avatar placed over the lower section of NANDI */}
               <div
-                className={`absolute top-[48%] sm:top-[52%] md:top-[55%] z-30 transition-all duration-1000 ease-out ${
+                className={`absolute top-[44%] sm:top-[48%] md:top-[54%] z-30 transition-all duration-1000 ease-out ${
                   avatarLoaded ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-6'
                 }`}
                 style={{ transform: `translate3d(0, ${scrollY * 0.04}px, 0)`, willChange: 'transform' }}
@@ -156,12 +167,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
                     transform: `translate3d(${magneticPos.x}px, ${magneticPos.y}px, 0) scale(${magneticPos.scale})`,
                     willChange: 'transform'
                   }}
-                  className="relative group w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-[20px] sm:rounded-[30px] md:rounded-[36px] overflow-visible transition-transform duration-200 ease-out cursor-pointer bg-[#16130f] ring-2 ring-[#f2c08d]/40 hover:ring-[#f2c08d] shadow-[0_25px_60px_rgba(242,192,141,0.2)]"
+                  className="relative group w-24 h-24 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-[22px] sm:rounded-[32px] md:rounded-[36px] overflow-visible transition-transform duration-200 ease-out cursor-pointer bg-[#16130f] ring-2 ring-[#f2c08d]/40 hover:ring-[#f2c08d] shadow-[0_25px_60px_rgba(242,192,141,0.2)]"
                 >
                   <img
                     src={HERO_DATA.avatarUrl}
                     alt="Antarip Nandi Avatar"
-                    className="w-full h-full object-cover rounded-[20px] sm:rounded-[30px] md:rounded-[36px] pointer-events-none"
+                    className="w-full h-full object-cover rounded-[22px] sm:rounded-[32px] md:rounded-[36px] pointer-events-none"
                   />
 
                   {/* Cursor / Touch Badge */}

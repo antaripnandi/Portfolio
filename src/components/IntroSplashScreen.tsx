@@ -76,13 +76,19 @@ export const IntroSplashScreen: React.FC<IntroSplashScreenProps> = ({ onComplete
       <motion.div
         key="splash-overlay"
         onClick={handleSkip}
-        initial={{ y: '0%' }}
-        animate={{ y: isSlidingOut ? '100%' : '0%' }}
+        initial={{ y: '0%', opacity: 1 }}
+        animate={
+          isSlidingOut
+            ? { y: '100%', opacity: 0 }
+            : { y: '0%', opacity: 1 }
+        }
+        exit={{ opacity: 0 }}
         transition={{
-          duration: isSkipped ? 0.35 : 0.8,
+          duration: isSkipped ? 0.35 : 0.75,
           ease: isSkipped ? [0.4, 0, 1, 1] : [0.76, 0, 0.24, 1]
         }}
-        className="fixed inset-0 z-[9999] bg-[#16130f] flex flex-col items-center justify-center pointer-events-auto select-none overflow-hidden cursor-pointer"
+        style={{ willChange: 'transform, opacity' }}
+        className="fixed inset-0 w-full h-full h-[100dvh] z-[9999] bg-[#16130f] flex flex-col items-center justify-center pointer-events-auto select-none overflow-hidden cursor-pointer touch-none"
       >
         {/* Soft atmospheric ambient glow */}
         <div className="absolute w-[500px] h-[500px] bg-[#f2c08d]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -100,7 +106,7 @@ export const IntroSplashScreen: React.FC<IntroSplashScreenProps> = ({ onComplete
               }
               transition={
                 isSlidingOut
-                  ? { duration: isSkipped ? 0.2 : 0.45, delay: isSkipped ? 0 : idx * 0.05, ease: [0.16, 1, 0.3, 1] }
+                  ? { duration: isSkipped ? 0.2 : 0.45, delay: 0, ease: [0.16, 1, 0.3, 1] }
                   : { duration: 0.8, delay: idx * 0.5 + 0.1, ease: [0.16, 1, 0.3, 1] }
               }
               className="flex items-center"

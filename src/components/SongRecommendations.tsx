@@ -3,44 +3,61 @@ import { motion } from 'motion/react';
 import { SongTrack } from '../types';
 import { SONGS_DATA } from '../data/portfolioData';
 
-// Individual Tilted Card Component for smooth 3D tilt on hover
+// Individual Tilted Card Component for smooth magnetic reaction & sibling shifting on hover
 const TiltedSongCard: React.FC<{
   song: SongTrack;
+  idx: number;
+  hoveredIdx: number | null;
+  onHover: (idx: number | null) => void;
   onClick: () => void;
-}> = ({ song, onClick }) => {
+}> = ({ song, idx, hoveredIdx, onHover, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const isHovered = hoveredIdx === idx;
+  const isSiblingHovered = hoveredIdx !== null && hoveredIdx !== idx;
+
+  // Sibling displacement direction
+  const isLeftSibling = hoveredIdx !== null && idx < hoveredIdx;
+  const isRightSibling = hoveredIdx !== null && idx > hoveredIdx;
+
+  const handleMouseEnter = () => {
+    onHover(idx);
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const relativeX = e.clientX - rect.left;
+    const relativeY = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    // Magnetic offset matching avatar style with refined strength (0.18)
+    const magX = (relativeX - rect.width / 2) * 0.18;
+    const magY = (relativeY - rect.height / 2) * 0.18;
 
-    const normX = (x - centerX) / centerX; // -1 to 1
-    const normY = (y - centerY) / centerY; // -1 to 1
+    // Light 3D tilt
+    const normX = (relativeX - rect.width / 2) / (rect.width / 2);
+    const normY = (relativeY - rect.height / 2) / (rect.height / 2);
+    const rotateY = normX * 5;
+    const rotateX = -normY * 4;
 
-    const rotateY = normX * 10;
-    const rotateX = -normY * 8;
-    const translateX = normX * 6;
-    const translateY = normY * 6;
-
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translate3d(${translateX.toFixed(2)}px, ${translateY.toFixed(2)}px, 0px) scale(1.06)`;
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+    cardRef.current.style.transform = `translate3d(${magX.toFixed(2)}px, ${magY.toFixed(2)}px, 0) rotateX(${rotateX.toFixed(
+      2
+    )}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.08)`;
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
+    onHover(null);
     if (cardRef.current) {
-      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px) scale(1)';
+      cardRef.current.style.transform = 'translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) scale(1)';
     }
   };
+
+  // Sibling cards shift to opposite side without shrinking (scale strictly 1)
+  let siblingTransform = 'translate3d(0px, 0px, 0px) scale(1)';
+  if (isLeftSibling) {
+    siblingTransform = 'translate3d(-36px, 0px, 0px) scale(1)';
+  } else if (isRightSibling) {
+    siblingTransform = 'translate3d(36px, 0px, 0px) scale(1)';
+  }
 
   return (
     <div
@@ -51,25 +68,32 @@ const TiltedSongCard: React.FC<{
       onMouseLeave={handleMouseLeave}
       title={`${song.title} - ${song.artist}`}
       style={{
-        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate3d(0px, 0px, 0px) scale(1)',
+        transform: isHovered
+          ? undefined
+          : siblingTransform,
         transition: isHovered
-          ? 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)'
-          : 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-        willChange: 'transform'
+          ? 'transform 0.12s ease-out'
+          : 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease',
+        opacity: isSiblingHovered ? 0.85 : 1,
+        willChange: 'transform, opacity'
       }}
-      className="group relative shrink-0 cursor-pointer pointer-events-auto py-3 z-20"
+      className={`group relative shrink-0 cursor-pointer pointer-events-auto py-3 select-none ${
+        isHovered ? 'z-30' : 'z-20'
+      }`}
     >
       <div
-        className={`w-[180px] sm:w-[220px] md:w-[250px] aspect-[16/11] rounded-xl sm:rounded-2xl overflow-hidden bg-[#231f1b] border border-white/10 shadow-xl transition-all duration-300 ${
+        data-cursor-morph="true"
+        className={`w-[200px] sm:w-[240px] md:w-[270px] aspect-[16/11] rounded-xl sm:rounded-2xl overflow-hidden bg-[#16130f] border border-white/10 shadow-xl relative transition-all duration-300 ${
           isHovered
-            ? 'border-[#f2c08d] ring-2 ring-[#f2c08d]/40 shadow-[0_20px_45px_rgba(242,192,141,0.25)]'
+            ? 'border-[#f2c08d] ring-2 ring-[#f2c08d]/50 shadow-[0_25px_50px_rgba(242,192,141,0.3)]'
             : ''
         }`}
       >
+        {/* Cover Image - scale-100 & object-center so the image/eyes are never cropped */}
         <img
           src={song.coverUrl}
           alt={`${song.title} - ${song.artist}`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+          className="w-full h-full object-cover object-center scale-100 pointer-events-none transition-transform duration-500 ease-out"
           loading="lazy"
         />
       </div>
@@ -79,9 +103,10 @@ const TiltedSongCard: React.FC<{
 
 export const SongRecommendations: React.FC = () => {
   const songs: SongTrack[] = SONGS_DATA;
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-  // Duplicate list to create a seamless infinite loop
-  const marqueeItems = [...songs, ...songs, ...songs, ...songs];
+  // Duplicate list once to create a seamless infinite loop
+  const marqueeItems = [...songs, ...songs];
 
   const handleRedirect = (spotifyUrl?: string) => {
     if (spotifyUrl) {
@@ -99,11 +124,14 @@ export const SongRecommendations: React.FC = () => {
     >
       {/* INFINITE MARQUEE STREAM - PAUSES ON HOVER */}
       <div className="relative w-full overflow-hidden pause-on-hover py-2">
-        <div className="animate-marquee-left flex gap-5 sm:gap-7 md:gap-8 px-4 items-center">
+        <div className="animate-marquee-left flex gap-10 sm:gap-14 md:gap-16 lg:gap-20 px-6 items-center">
           {marqueeItems.map((song, idx) => (
             <TiltedSongCard
               key={`rec-${song.id}-${idx}`}
               song={song}
+              idx={idx}
+              hoveredIdx={hoveredIdx}
+              onHover={setHoveredIdx}
               onClick={() => handleRedirect(song.spotifyUrl)}
             />
           ))}
