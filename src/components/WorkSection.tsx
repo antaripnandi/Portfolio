@@ -70,7 +70,7 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
         {/* Ambient Top Shimmer Line */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#f2c08d] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Top Row: Quick Circular Action Buttons (GitHub & Live Link) + Category Badge */}
+        {/* Top Row: Quick Circular Action Buttons (GitHub & Live Link) + Category Badge + Action Arrow */}
         <div className="flex items-center justify-between relative z-20">
           <div className="flex items-center gap-3">
             {project.githubUrl && (
@@ -104,13 +104,20 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="font-mono-tech text-xs text-[#f2c08d] bg-[#f2c08d]/10 border border-[#f2c08d]/30 px-3 py-1 rounded-full uppercase tracking-wider font-bold">
               {project.year}
             </span>
             <span className="font-mono-tech text-xs text-[#d4c4b7]/60 uppercase tracking-wider hidden sm:inline">
               {project.category}
             </span>
+
+            {/* Circular Action Arrow Button (Top Right) */}
+            <div className="w-10 h-10 rounded-full bg-white/5 group-hover:bg-[#f2c08d] border border-white/10 group-hover:border-[#f2c08d] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md ml-1 shrink-0">
+              <span className="material-symbols-outlined text-lg text-[#d4c4b7] group-hover:text-[#16130f] group-hover:rotate-45 group-hover:-translate-y-0.5 transition-all duration-300">
+                north_east
+              </span>
+            </div>
           </div>
         </div>
 
@@ -162,27 +169,10 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
                     alt="Sakido Academic Portal"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[10px] text-white/90">
-                    <span>Unified Student Portal</span>
-                    <span className="text-[#f2c08d] font-bold group-hover:underline">Launch App →</span>
-                  </div>
                 </div>
               </div>
             </div>
           )}
-        </div>
-
-        {/* Action arrow indicator at bottom-right of every card */}
-        <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 flex items-center gap-3 shrink-0 z-20 pointer-events-none">
-          <span className="font-mono-tech text-xs text-[#f2c08d] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline font-bold">
-            View Details
-          </span>
-          <div className="w-11 h-11 rounded-full bg-white/5 group-hover:bg-[#f2c08d] border border-white/10 group-hover:border-[#f2c08d] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
-            <span className="material-symbols-outlined text-xl text-[#d4c4b7] group-hover:text-[#16130f] group-hover:rotate-45 group-hover:-translate-y-0.5 transition-all duration-300">
-              north_east
-            </span>
-          </div>
         </div>
       </div>
     </motion.div>
