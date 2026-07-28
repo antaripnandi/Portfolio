@@ -74,18 +74,18 @@ export const HERO_DATA = {
   nameLast: 'NANDI',
   location: 'Chennai / Siliguri, India',
   age: '17 Years Old',
-  specialization: 'AI · Advanced Web Design · Systems',
+  specialization: 'AI · Sakido Portal · Full-Stack Web Systems',
   avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6Ph1aUBLx03spHIW-mTilL10YVHgWq6NfWqePnyZ3QR5CkCfwiPKHszy7hCFhchLiGfSe-guin6XZVhhlUPBQvjXnIRv-AurxBdWB2AC8OBMc-Eh4lk6Q4_Nsd03sXs8ZvUBoqqeV6xTwQzz5GaQo8qcCUfxgKyYd6zfoXq7C4dl9ysb-I5dEcIKqkyAy5zT2BxpEj-OFfWRYlqlqLplaXF47rBBlvKOiLl6i-1eWGlNexyCcqsJrXjJFokMEmAI7KQZsdULmugW3',
   bgHeroUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCscLaIaKHKFYYnohawIk1fvObNG74L7Ff9hzq-goJgIB1ozz3l_JFaeX1TvuL5R5Wqf2XIOf8zzfAGFo9ggymxb2MVI-EJ9SrXx5QVMm8sIq0NMq_U1wHzpS0pv-qT3o-rfXOWvtfjhnqRxlrtIcwMNXr0cM3TIridX11Np9Ha7CUO1D6pn0_5THVOcsh37YjUIwxVwQ2BiPiZbAzoTk3g-EyiDFq4TkSkejeAqnBgIcwAz__Dx5-id8mia8c1ajfEKDuefpCg1nig'
 };
 
 export const ABOUT_DATA = {
   sectionLabel: '01 — ABOUT',
-  bioPrimary: `I am Antarip Nandi, a developer deeply focused on AI Systems & Agents, Advanced Web Design, Minecraft modding, and creative digital engineering. Currently a first-year CSE student studying in Chennai, originally from Siliguri, West Bengal, and specializing in AI/ML.`,
-  bioSecondary: `I build software that balances high technical performance with clean, responsive design — from multi-agent AI tools to custom gameplay mods and interactive web applications.`,
+  bioPrimary: `I am Antarip Nandi, a developer deeply focused on AI Systems & Agents, Sakido Student Workspace, Minecraft modding, and creative digital engineering. Currently a first-year CSE student studying in Chennai, originally from Siliguri, West Bengal, and specializing in AI/ML.`,
+  bioSecondary: `I build software that balances high technical performance with clean, responsive design — from multi-agent AI tools to custom gameplay mods and unified productivity portals.`,
   skills: [
     { title: 'AI Systems & Agents', subtitle: 'Python / LLMs', tag: 'AI/ML' },
-    { title: 'Advanced Web Design', subtitle: 'UI/UX & Interactive Design', tag: 'React / TS' },
+    { title: 'Sakido Academic Portal', subtitle: 'Unified Student Workspace & Live Sync', tag: 'React / TS' },
     { title: 'Minecraft Modding', subtitle: 'Java / Modding API', tag: 'Java' },
     { title: 'Video Editing', subtitle: 'DaVinci Resolve', tag: 'Creative' }
   ] as SkillCategory[]
@@ -175,16 +175,16 @@ export const NOW_DATA = {
     title: 'Learning',
     items: [
       { icon: 'bolt', text: 'Advanced Agent Design', detail: 'Exploring multi-agent swarms and function orchestration.' },
-      { icon: 'design_services', text: 'Advanced Web Design & UI/UX', detail: 'Mastering micro-interactions, responsive architecture, and fluid motion.' },
+      { icon: 'school', text: 'Student Productivity Systems', detail: 'Mastering academic workspace architecture, live OAuth calendar sync, and focus UX.' },
       { icon: 'palette', text: 'Blender & Video Editing', detail: '3D motion graphics and DaVinci Resolve color grading.' }
     ]
   },
   building: {
     title: 'Building',
     items: [
-      { icon: 'layers', text: 'More Minecraft Mods', detail: 'New inventory mechanics and custom dimension utilities.' },
+      { icon: 'school', text: 'Sakido Academic Portal', detail: 'Consolidating timetables, tasks, course notes, and live 2-way Google Calendar sync for students.' },
       { icon: 'hub', text: 'Expanding AI Agents', detail: 'Enhancing OpenClaw agent tool-call reliability.' },
-      { icon: 'code', text: 'Bespoke Web Experiences', detail: 'Crafting high-precision, interactive web apps and portfolio platforms.' }
+      { icon: 'layers', text: 'More Minecraft Mods', detail: 'New inventory mechanics and custom dimension utilities.' }
     ]
   }
 };
