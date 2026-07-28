@@ -13,7 +13,6 @@ import { BeyondSection } from './components/BeyondSection';
 import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ResumeModal } from './components/ResumeModal';
-import { SettingsModal } from './components/SettingsModal';
 import { CustomCursor } from './components/CustomCursor';
 import { IntroSplashScreen } from './components/IntroSplashScreen';
 
@@ -22,21 +21,6 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [splashFinished, setSplashFinished] = useState<boolean>(false);
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark');
-
-  const handleToggleTheme = () => {
-    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setCurrentTheme(nextTheme);
-    const root = document.documentElement;
-    if (nextTheme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    }
-  };
 
   // Initialize Lenis smooth inertia scrolling across desktop, mobile, tablet, laptop, etc.
   useEffect(() => {
@@ -152,14 +136,12 @@ export default function App() {
       <Navbar
         activeSection={activeSection}
         isSplashFinished={splashFinished}
-        onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
       {/* Main Sections */}
       <main className="relative z-10">
         <HeroSection
           isSplashFinished={splashFinished}
-          onOpenSettings={() => setIsSettingsOpen(true)}
         />
         <AboutSection onOpenResume={() => setIsResumeOpen(true)} />
         <SongRecommendations />
@@ -181,14 +163,6 @@ export default function App() {
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
-      />
-
-      {/* Settings / Preferences Menu modal */}
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        currentTheme={currentTheme}
-        onToggleTheme={handleToggleTheme}
       />
 
       {/* Vercel Analytics */}

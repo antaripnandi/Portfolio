@@ -3,10 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 interface NavbarProps {
   activeSection: string;
   isSplashFinished?: boolean;
-  onOpenSettings?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished = false, onOpenSettings }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
@@ -65,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished 
       {/* Desktop Navigation (Full horizontal bar on md+ screens) */}
       <nav
         style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
-        className="hidden md:flex items-center gap-5 h-11 px-7 bg-[#231f1b]/85 border border-white/10 rounded-full shadow-2xl"
+        className="hidden md:flex items-center gap-6 h-11 px-8 bg-[#231f1b]/85 border border-white/10 rounded-full shadow-2xl"
       >
         {navItems.map(item => {
           const isActive = activeSection === item.id;
@@ -83,20 +82,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished 
             </button>
           );
         })}
-
-        {/* Vertical divider */}
-        <div className="w-[1px] h-4 bg-white/15 mx-0.5" />
-
-        {/* Settings Menu Trigger Button */}
-        <button
-          onClick={onOpenSettings}
-          title="Open Settings Menu"
-          aria-label="Open Settings"
-          className="flex items-center gap-1.5 font-mono-tech text-xs uppercase tracking-widest text-[#d4c4b7]/70 hover:text-[#f2c08d] transition-colors cursor-pointer"
-        >
-          <span className="material-symbols-outlined text-sm leading-none">tune</span>
-          <span>Settings</span>
-        </button>
       </nav>
 
       {/* Mobile & Tablet Compact Navigation (< md screens) */}
@@ -131,19 +116,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isSplashFinished 
                 </button>
               );
             })}
-
-            <div className="w-full h-[1px] bg-white/10 my-1" />
-
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                if (onOpenSettings) onOpenSettings();
-              }}
-              className="w-full text-left px-3 py-2 rounded-xl font-mono-tech text-xs uppercase tracking-widest text-[#f2c08d] hover:bg-white/10 flex items-center justify-between cursor-pointer"
-            >
-              <span>Settings</span>
-              <span className="material-symbols-outlined text-sm">tune</span>
-            </button>
           </div>
         )}
       </div>
