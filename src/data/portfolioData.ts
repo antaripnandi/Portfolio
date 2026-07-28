@@ -93,6 +93,26 @@ export const ABOUT_DATA = {
 
 export const PROJECTS_DATA: Project[] = [
   {
+    id: 'sakido',
+    title: 'SAKIDO',
+    year: '2026',
+    category: 'STUDENT PRODUCTIVITY PORTAL',
+    description: 'A unified workspace designed to help students organize academic life without feeling overwhelmed — bringing class timetables, assignment deadlines, watch-later study videos, course notes, and live 2-way Google Calendar sync into one distractor-free focus app.',
+    tags: ['REACT', 'TYPESCRIPT', 'SUPABASE', 'GOOGLE CALENDAR API', 'TAILWIND CSS'],
+    longDescription: 'Sakido empowers students to eliminate distraction and master their academic schedules by replacing 5 scattered productivity tools with a single unified portal. Built with live 2-way Google Calendar sync, Apple-style hourly timetables, and in-app video playback.',
+    features: [
+      'Eliminates academic chaos by consolidating notes, tasks, and schedules into 1 portal',
+      'Live 2-Way Google Calendar API synchronization for real-time schedule updates',
+      'Apple-style hourly timetable view with live red current-time indicator line',
+      'In-App video player modal for YouTube & Vimeo study videos without external tab distractions',
+      'Course grade average tracking, day inspector modal, and personalized theme workspace'
+    ],
+    architecture: 'React 19 · TypeScript · Supabase Auth · Google Calendar v3 API · Vite',
+    githubUrl: 'https://github.com/antaripnandi/Sakido',
+    liveUrl: 'https://sakidoapp.vercel.app',
+    demoType: 'sakido-portal'
+  },
+  {
     id: 'openclaw',
     title: 'OPENCLAW',
     year: '2026',
@@ -146,26 +166,6 @@ export const PROJECTS_DATA: Project[] = [
     architecture: 'Java 17/21 · Fabric API / Minecraft Forge · OpenGL HUD Rendering',
     modrinthUrl: 'https://modrinth.com/user/antarip',
     demoType: 'minecraft-mod'
-  },
-  {
-    id: 'sakido',
-    title: 'SAKIDO ACADEMIC PORTAL',
-    year: '2026',
-    category: 'UNIFIED STUDENT WORKSPACE',
-    description: 'Notes, calendar, tasks, saved links, and video playback — one app replacing five separate apps with live Google Calendar sync.',
-    tags: ['React', 'TypeScript', 'Supabase', 'Google API', 'Tailwind CSS'],
-    longDescription: 'Sakido is a unified student productivity workspace combining class schedules, assignment tracking, in-app video playback, markdown notes, and live 2-way Google Calendar API synchronization.',
-    features: [
-      'Live 2-Way Google Calendar API event & milestone synchronization',
-      'Apple-style hourly timetable view with live red current-time indicator',
-      'In-App video player modal for YouTube & Vimeo Watch Later resources',
-      'Integrated course notes, grade average calculator, and quick task filter',
-      'Interactive day inspector modal and verified user workspace profile'
-    ],
-    architecture: 'React 19 · TypeScript · Supabase Auth · Google Calendar v3 API · Vite',
-    githubUrl: 'https://github.com/antaripnandi/Sakido',
-    liveUrl: 'https://sakidoapp.vercel.app',
-    demoType: 'sakido-portal'
   }
 ];
 

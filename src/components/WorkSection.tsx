@@ -56,51 +56,82 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
         onMouseLeave={handleMouseLeave}
         onClick={() => onSelect(project)}
         style={{ transform, transition: 'transform 0.25s ease-out, border-color 0.3s ease, box-shadow 0.3s ease' }}
-        className="group relative bg-[#16130f] hover:bg-[#1c1814] p-6 sm:p-8 md:p-12 cursor-pointer overflow-hidden rounded-2xl border border-white/10 hover:border-[#f2c08d]/50 shadow-md hover:shadow-xl hover:shadow-[#f2c08d]/5 transition-all duration-300"
+        className="group relative bg-[#16130f] hover:bg-[#1c1814] p-6 sm:p-8 md:p-10 cursor-pointer overflow-hidden rounded-3xl border border-white/10 hover:border-[#f2c08d]/50 shadow-lg hover:shadow-2xl hover:shadow-[#f2c08d]/5 transition-all duration-300 flex flex-col gap-6"
       >
         {/* Cursor Spotlight Gradient Effect */}
         <div
           className="pointer-events-none absolute inset-0 transition-opacity duration-300"
           style={{
             opacity: glowPos.opacity,
-            background: `radial-gradient(500px circle at ${glowPos.x}% ${glowPos.y}%, rgba(242, 192, 141, 0.08), transparent 70%)`
+            background: `radial-gradient(600px circle at ${glowPos.x}% ${glowPos.y}%, rgba(242, 192, 141, 0.09), transparent 70%)`
           }}
         />
 
         {/* Ambient Top Shimmer Line */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#f2c08d] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Diagonal Light Sweep Effect on Hover */}
-        <div className="pointer-events-none absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-[300%] transition-transform duration-1000 ease-in-out" />
+        {/* Top Row: Quick Circular Action Buttons (GitHub & Live Link) + Category Badge */}
+        <div className="flex items-center justify-between relative z-20">
+          <div className="flex items-center gap-3">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="w-10 h-10 rounded-full bg-white text-zinc-900 flex items-center justify-center hover:bg-[#f2c08d] transition-all duration-200 shadow-sm hover:scale-110"
+                title="View GitHub Repository"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="w-10 h-10 rounded-full bg-white text-zinc-900 flex items-center justify-center hover:bg-[#f2c08d] transition-all duration-200 shadow-sm hover:scale-110"
+                title="Launch Live App"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+              </a>
+            )}
+          </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 relative z-10">
-          <div className="space-y-4 max-w-2xl">
-            {/* Year & Category tags */}
-            <div className="flex items-center gap-3">
-              <span className="font-mono-tech text-xs text-[#f2c08d] bg-[#f2c08d]/10 border border-[#f2c08d]/30 px-2.5 py-0.5 rounded-full uppercase tracking-wider group-hover:scale-105 group-hover:bg-[#f2c08d]/20 transition-all">
-                {project.year}
-              </span>
-              <span className="font-mono-tech text-xs text-[#d4c4b7]/50 uppercase tracking-wider group-hover:text-[#d4c4b7] group-hover:tracking-widest transition-all">
-                {project.category}
-              </span>
-            </div>
+          <div className="flex items-center gap-2">
+            <span className="font-mono-tech text-xs text-[#f2c08d] bg-[#f2c08d]/10 border border-[#f2c08d]/30 px-3 py-1 rounded-full uppercase tracking-wider font-bold">
+              {project.year}
+            </span>
+            <span className="font-mono-tech text-xs text-[#d4c4b7]/60 uppercase tracking-wider hidden sm:inline">
+              {project.category}
+            </span>
+          </div>
+        </div>
 
-            {/* Title */}
-            <h3 className="font-anton text-3xl md:text-4xl text-[#eae1db] group-hover:text-[#f2c08d] group-hover:translate-x-2 transition-all duration-300">
+        {/* Main Grid: Left Narrative + Right Laptop Device Preview */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10 pt-2">
+          {/* Left Narrative Column */}
+          <div className="md:col-span-6 lg:col-span-7 space-y-4">
+            <h3 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#eae1db] group-hover:text-[#f2c08d] tracking-wide transition-all duration-300">
               {project.title}
             </h3>
 
-            {/* Description */}
-            <p className="text-base text-[#d4c4b7]/90 leading-relaxed group-hover:text-[#eae1db] transition-colors">
+            <p className="text-base text-[#d4c4b7]/90 leading-relaxed font-sans group-hover:text-[#eae1db] transition-colors">
               {project.description}
             </p>
 
             {/* Tag Chips */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2.5 pt-3">
               {project.tags.map(tag => (
                 <span
                   key={tag}
-                  className="px-3 py-1 bg-white/5 group-hover:bg-white/10 font-mono-tech text-[10px] text-[#d4c4b7]/80 uppercase rounded-md border border-white/10 hover:border-[#f2c08d]/50 hover:text-[#f2c08d] transition-all hover:-translate-y-0.5"
+                  className="px-3.5 py-1.5 bg-white/5 group-hover:bg-white/10 font-mono-tech text-xs font-bold text-[#d4c4b7] uppercase rounded-lg border border-white/10 hover:border-[#f2c08d]/50 hover:text-[#f2c08d] transition-all"
                 >
                   {tag}
                 </span>
@@ -108,15 +139,56 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
             </div>
           </div>
 
-          {/* Action indicator */}
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="font-mono-tech text-xs text-[#f2c08d] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline font-bold">
-              View Details
-            </span>
-            <div className="w-12 h-12 rounded-full bg-white/5 group-hover:bg-[#f2c08d] border border-white/10 group-hover:border-[#f2c08d] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
-              <span className="material-symbols-outlined text-2xl text-[#d4c4b7] group-hover:text-[#16130f] group-hover:rotate-45 transition-transform duration-300">
-                north_east
-              </span>
+          {/* Right Laptop Device Mockup Preview Frame (Matches screenshot style) */}
+          <div className="md:col-span-6 lg:col-span-5 w-full">
+            <div className="relative w-full aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden bg-[#0d0b09] border border-white/15 shadow-2xl group-hover:border-[#f2c08d]/40 transition-all flex flex-col">
+              {/* Device Header Bar */}
+              <div className="h-7 bg-[#181410] border-b border-white/10 px-3 flex items-center justify-between shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                </div>
+                <span className="font-mono text-[10px] text-[#d4c4b7]/50 truncate max-w-[160px]">
+                  {project.liveUrl || 'https://sakidoapp.vercel.app'}
+                </span>
+              </div>
+
+              {/* UI Canvas Preview Graphic */}
+              <div className="p-4 flex-1 flex flex-col justify-between bg-gradient-to-br from-[#1c1813] via-[#120f0c] to-[#0a0806] font-mono">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-[#f2c08d] text-[#16130f] font-bold text-[10px] flex items-center justify-center">S</div>
+                    <span className="font-bold text-xs text-[#eae1db]">{project.title}</span>
+                  </div>
+                  <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-700/50">
+                    ● Live App
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 my-3">
+                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
+                    <span className="text-[8px] text-[#f2c08d] font-bold block">CLASSES</span>
+                    <div className="h-1.5 bg-[#f2c08d]/40 rounded w-3/4"></div>
+                    <div className="h-1.5 bg-white/10 rounded w-1/2"></div>
+                  </div>
+                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
+                    <span className="text-[8px] text-[#f2c08d] font-bold block">TIMETABLE</span>
+                    <div className="h-1.5 bg-[#f2c08d]/40 rounded w-full"></div>
+                    <div className="h-1.5 bg-white/10 rounded w-2/3"></div>
+                  </div>
+                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
+                    <span className="text-[8px] text-[#f2c08d] font-bold block">TASKS</span>
+                    <div className="h-1.5 bg-emerald-500/50 rounded w-4/5"></div>
+                    <div className="h-1.5 bg-white/10 rounded w-1/3"></div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[9px] text-[#d4c4b7]/70">
+                  <span>Student Focus Workspace</span>
+                  <span className="text-[#f2c08d] font-bold group-hover:underline">Click to View →</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
