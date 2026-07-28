@@ -4,9 +4,10 @@ import { ConnectModal } from './ConnectModal';
 
 interface HeroSectionProps {
   isSplashFinished?: boolean;
+  onOpenSettings?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = false }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = false, onOpenSettings }) => {
   const avatarRef = useRef<HTMLDivElement>(null);
   const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0, scale: 1 });
   const [previewAvatar, setPreviewAvatar] = useState(false);
@@ -89,16 +90,31 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ isSplashFinished = fal
 
   return (
     <section id="hero" className="min-h-screen flex flex-col items-center justify-center py-20 text-center relative w-full overflow-hidden">
-      {/* Top Left Connect Button anchored to fixed top bar */}
-      <button
-        onClick={() => setIsConnectOpen(true)}
-        style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
-        className={`fixed top-4 left-4 sm:top-6 sm:left-6 md:left-8 z-[100] flex items-center justify-center h-10 px-4 sm:h-11 sm:px-6 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#d4c4b7] hover:text-[#f2c08d] active:scale-95 transition-all duration-1000 ease-out cursor-pointer pointer-events-auto ${
+      {/* Top Left Bar with CONNECT & Settings Buttons */}
+      <div
+        className={`fixed top-4 left-4 sm:top-6 sm:left-6 md:left-8 z-[100] flex items-center gap-2 pointer-events-auto transition-all duration-1000 ease-out ${
           uiLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
-        CONNECT
-      </button>
+        <button
+          onClick={() => setIsConnectOpen(true)}
+          style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+          className="flex items-center justify-center h-10 px-4 sm:h-11 sm:px-6 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl font-mono-tech text-xs uppercase tracking-widest text-[#d4c4b7] hover:text-[#f2c08d] active:scale-95 transition-all cursor-pointer"
+        >
+          CONNECT
+        </button>
+
+        {onOpenSettings && (
+          <button
+            onClick={onOpenSettings}
+            title="Open Settings"
+            style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+            className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 bg-[#231f1b]/85 border border-white/10 hover:border-[#f2c08d]/50 rounded-full shadow-2xl text-[#d4c4b7] hover:text-[#f2c08d] active:scale-95 transition-all cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-lg leading-none">tune</span>
+          </button>
+        )}
+      </div>
 
       {/* Background image & gradient layer (Loads with UI) */}
       <div

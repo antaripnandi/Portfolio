@@ -102,6 +102,20 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
                 </svg>
               </a>
             )}
+            {project.modrinthUrl && (
+              <a
+                href={project.modrinthUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="w-10 h-10 rounded-full bg-white text-zinc-900 flex items-center justify-center hover:bg-[#1bd96a] hover:text-zinc-950 transition-all duration-200 shadow-sm hover:scale-110"
+                title="View on Modrinth"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                  <path d="M12.252.004a11.78 11.78 0 0 0-2.52.258 12.449 12.449 0 0 0-4.04 1.849 12.2 12.2 0 0 0-3.327 3.565A12.02 12.02 0 0 0 .506 9.878c-.443 2.14-.316 4.358.37 6.442a12.3 12.3 0 0 0 2.603 4.41 12.05 12.05 0 0 0 4.148 2.766c2.02.81 4.22.956 6.321.42a12.25 12.25 0 0 0 5.485-2.894 11.97 11.97 0 0 0 3.2-4.872c.747-2.046.804-4.274.164-6.353a12.02 12.02 0 0 0-2.585-4.475A12.15 12.15 0 0 0 16.037.754 11.76 11.76 0 0 0 12.252.004zm-1.896 4.792h3.535l4.318 14.41h-3.344l-.946-3.377h-3.61l-.947 3.377H6.037zm1.767 3.428-1.282 4.606h2.564z" />
+                </svg>
+              </a>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
