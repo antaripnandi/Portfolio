@@ -22,8 +22,9 @@ export interface Project {
   features?: string[];
   architecture?: string;
   githubUrl?: string;
+  liveUrl?: string;
   modrinthUrl?: string;
-  demoType?: 'interactive-sudoku' | 'openclaw-agent' | 'minecraft-mod';
+  demoType?: 'interactive-sudoku' | 'openclaw-agent' | 'minecraft-mod' | 'sakido-portal';
 }
 
 export interface Interest {

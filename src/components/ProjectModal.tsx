@@ -179,12 +179,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           {/* Action Links */}
           <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-2.5 bg-[#f2c08d] hover:bg-[#d4a574] text-[#16130f] font-mono-tech text-xs uppercase font-bold rounded-lg transition flex items-center gap-2 shadow-xs"
+              >
+                <span>Launch Live Website</span>
+                <span className="material-symbols-outlined text-sm">north_east</span>
+              </a>
+            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 bg-[#d4a574] hover:bg-[#f2c08d] text-[#16130f] font-mono-tech text-xs uppercase font-bold rounded-lg transition flex items-center gap-2"
+                className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-[#eae1db] font-mono-tech text-xs uppercase font-bold rounded-lg transition flex items-center gap-2 border border-white/10"
               >
                 <span>View on Github</span>
                 <span className="material-symbols-outlined text-sm">north_east</span>

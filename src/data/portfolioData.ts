@@ -148,22 +148,24 @@ export const PROJECTS_DATA: Project[] = [
     demoType: 'minecraft-mod'
   },
   {
-    id: 'advanced-web-design',
-    title: 'ADVANCED WEB DESIGN',
+    id: 'sakido',
+    title: 'SAKIDO ACADEMIC PORTAL',
     year: '2026',
-    category: 'CREATIVE WEB & UI/UX',
-    description: 'Clean, responsive web experiences with smooth animations and custom interactive layouts. Example: This Portfolio.',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Motion'],
-    longDescription: 'A showcase of creative web design and interactive UI — including this portfolio website. Built with dark typography, smooth hover micro-interactions, 3D tilt cards, and a music marquee.',
+    category: 'UNIFIED STUDENT WORKSPACE',
+    description: 'Notes, calendar, tasks, saved links, and video playback — one app replacing five separate apps with live Google Calendar sync.',
+    tags: ['React', 'TypeScript', 'Supabase', 'Google API', 'Tailwind CSS'],
+    longDescription: 'Sakido is a unified student productivity workspace combining class schedules, assignment tracking, in-app video playback, markdown notes, and live 2-way Google Calendar API synchronization.',
     features: [
-      'Featured Example: This personal portfolio website',
-      'Interactive 3D tilt cards with mouse spotlight effects',
-      'Smooth music marquee with hover pause and fluid physics',
-      'Clean project detail modals with background scroll locking',
-      'Fully responsive layout built for all screen sizes'
+      'Live 2-Way Google Calendar API event & milestone synchronization',
+      'Apple-style hourly timetable view with live red current-time indicator',
+      'In-App video player modal for YouTube & Vimeo Watch Later resources',
+      'Integrated course notes, grade average calculator, and quick task filter',
+      'Interactive day inspector modal and verified user workspace profile'
     ],
-    architecture: 'React 19 · TypeScript · Motion · Tailwind CSS',
-    githubUrl: 'https://github.com/antaripnandi'
+    architecture: 'React 19 · TypeScript · Supabase Auth · Google Calendar v3 API · Vite',
+    githubUrl: 'https://github.com/antaripnandi/Sakido',
+    liveUrl: 'https://sakidoapp.vercel.app',
+    demoType: 'sakido-portal'
   }
 ];
 
