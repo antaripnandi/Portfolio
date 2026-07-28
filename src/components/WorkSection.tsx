@@ -172,6 +172,18 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
             </div>
           )}
         </div>
+
+        {/* Action arrow indicator at bottom-right of every card */}
+        <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 flex items-center gap-3 shrink-0 z-20 pointer-events-none">
+          <span className="font-mono-tech text-xs text-[#f2c08d] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline font-bold">
+            View Details
+          </span>
+          <div className="w-11 h-11 rounded-full bg-white/5 group-hover:bg-[#f2c08d] border border-white/10 group-hover:border-[#f2c08d] flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
+            <span className="material-symbols-outlined text-xl text-[#d4c4b7] group-hover:text-[#16130f] group-hover:rotate-45 group-hover:-translate-y-0.5 transition-all duration-300">
+              north_east
+            </span>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
