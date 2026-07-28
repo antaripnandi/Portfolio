@@ -114,10 +114,10 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
           </div>
         </div>
 
-        {/* Main Grid: Left Narrative + Right Laptop Device Preview */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10 pt-2">
+        {/* Main Grid: Left Narrative + Right Laptop Device Preview (for Sakido app only) */}
+        <div className={`grid grid-cols-1 ${project.id === 'sakido' ? 'md:grid-cols-12' : 'grid-cols-1'} gap-8 items-center relative z-10 pt-2`}>
           {/* Left Narrative Column */}
-          <div className="md:col-span-6 lg:col-span-7 space-y-4">
+          <div className={project.id === 'sakido' ? 'md:col-span-6 lg:col-span-7 space-y-4' : 'col-span-12 space-y-4'}>
             <h3 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#eae1db] group-hover:text-[#f2c08d] tracking-wide transition-all duration-300">
               {project.title}
             </h3>
@@ -139,58 +139,38 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ project, inde
             </div>
           </div>
 
-          {/* Right Laptop Device Mockup Preview Frame (Matches screenshot style) */}
-          <div className="md:col-span-6 lg:col-span-5 w-full">
-            <div className="relative w-full aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden bg-[#0d0b09] border border-white/15 shadow-2xl group-hover:border-[#f2c08d]/40 transition-all flex flex-col">
-              {/* Device Header Bar */}
-              <div className="h-7 bg-[#181410] border-b border-white/10 px-3 flex items-center justify-between shrink-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                </div>
-                <span className="font-mono text-[10px] text-[#d4c4b7]/50 truncate max-w-[160px]">
-                  {project.liveUrl || 'https://sakidoapp.vercel.app'}
-                </span>
-              </div>
-
-              {/* UI Canvas Preview Graphic */}
-              <div className="p-4 flex-1 flex flex-col justify-between bg-gradient-to-br from-[#1c1813] via-[#120f0c] to-[#0a0806] font-mono">
-                <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-[#f2c08d] text-[#16130f] font-bold text-[10px] flex items-center justify-center">S</div>
-                    <span className="font-bold text-xs text-[#eae1db]">{project.title}</span>
+          {/* Right Laptop Device Mockup Preview Frame (Only for Sakido app) */}
+          {project.id === 'sakido' && (
+            <div className="md:col-span-6 lg:col-span-5 w-full">
+              <div className="relative w-full aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden bg-[#0d0b09] border border-white/15 shadow-2xl group-hover:border-[#f2c08d]/40 transition-all flex flex-col">
+                {/* Device Header Bar */}
+                <div className="h-7 bg-[#181410] border-b border-white/10 px-3 flex items-center justify-between shrink-0 z-10">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                   </div>
-                  <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-700/50">
-                    ● Live App
+                  <span className="font-mono text-[10px] text-[#d4c4b7]/50 truncate max-w-[160px]">
+                    https://sakidoapp.vercel.app
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 my-3">
-                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
-                    <span className="text-[8px] text-[#f2c08d] font-bold block">CLASSES</span>
-                    <div className="h-1.5 bg-[#f2c08d]/40 rounded w-3/4"></div>
-                    <div className="h-1.5 bg-white/10 rounded w-1/2"></div>
+                {/* Sakido Hero Image */}
+                <div className="relative flex-1 overflow-hidden bg-black">
+                  <img
+                    src="/sakido-hero.png"
+                    alt="Sakido Academic Portal"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between font-mono text-[10px] text-white/90">
+                    <span>Unified Student Portal</span>
+                    <span className="text-[#f2c08d] font-bold group-hover:underline">Launch App →</span>
                   </div>
-                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
-                    <span className="text-[8px] text-[#f2c08d] font-bold block">TIMETABLE</span>
-                    <div className="h-1.5 bg-[#f2c08d]/40 rounded w-full"></div>
-                    <div className="h-1.5 bg-white/10 rounded w-2/3"></div>
-                  </div>
-                  <div className="bg-[#231e18] p-2 rounded-lg border border-white/10 space-y-1">
-                    <span className="text-[8px] text-[#f2c08d] font-bold block">TASKS</span>
-                    <div className="h-1.5 bg-emerald-500/50 rounded w-4/5"></div>
-                    <div className="h-1.5 bg-white/10 rounded w-1/3"></div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[9px] text-[#d4c4b7]/70">
-                  <span>Student Focus Workspace</span>
-                  <span className="text-[#f2c08d] font-bold group-hover:underline">Click to View →</span>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </motion.div>
