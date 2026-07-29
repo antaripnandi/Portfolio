@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { Project } from './types';
@@ -167,6 +168,9 @@ export default function App() {
 
       {/* Vercel Analytics */}
       <Analytics />
+      
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 }
