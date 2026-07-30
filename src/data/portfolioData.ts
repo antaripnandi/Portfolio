@@ -113,42 +113,6 @@ export const PROJECTS_DATA: Project[] = [
     demoType: 'sakido-portal'
   },
   {
-    id: 'openclaw',
-    title: 'OPENCLAW',
-    year: '2026',
-    category: 'AI AGENT ECOSYSTEM',
-    description: 'A multi-agent framework built for AI agent coordination and autonomous task execution. (Personal project; will not be released.)',
-    tags: ['Python', 'Multi-Agent', 'LLM'],
-    longDescription: 'OpenClaw is a framework designed for coordinating multiple AI agents. It manages over 100 specialized micro-agents that handle task planning, tool execution, memory storage, and real-time execution feedback. Note: This is a personal project and will not be released.',
-    features: [
-      '100+ specialized domain agents operating in parallel',
-      'Long-term memory storage with fast vector retrieval',
-      'Automated task execution and error checking',
-      'Real-time streaming for agent thoughts and task status'
-    ],
-    architecture: 'Python 3.12 · Asyncio · Vector Store · LLM Agents',
-    demoType: 'openclaw-agent'
-  },
-  {
-    id: 'sudoku',
-    title: 'SUDOKU',
-    year: '2025',
-    category: 'FULL STACK GAME',
-    description: 'A full-featured Sudoku engine with 5 difficulty levels, random puzzle generation, move validation, and MySQL leaderboard tracking.',
-    tags: ['Python', 'MySQL', 'Sudoku Engine', 'Algorithms'],
-    longDescription: 'A complete full-stack Sudoku game built with custom puzzle generation and a MySQL database backend. Features 5 distinct difficulty levels, real-time grid move validation, completion timers, and persistent leaderboards.',
-    features: [
-      '5 Difficulty Levels: Very Easy, Easy, Mid, Hard, and Very Very Hard',
-      'Random puzzle generation with unchangeable starting clues',
-      'Real-time move validation for rows, columns, and 3x3 sub-grids',
-      'Built-in timer tracking exact time taken to solve each puzzle',
-      'MySQL-backed leaderboard tracking top player scores and times'
-    ],
-    architecture: 'Python · MySQL Database · Grid Validation Engine',
-    githubUrl: 'https://github.com/antaripnandi/Sudoku',
-    demoType: 'interactive-sudoku'
-  },
-  {
     id: 'minecraft-mods',
     title: 'MINECRAFT MODS',
     year: '2026',
@@ -166,6 +130,15 @@ export const PROJECTS_DATA: Project[] = [
     architecture: 'Java 17/21 · Fabric API / Minecraft Forge · OpenGL HUD Rendering',
     modrinthUrl: 'https://modrinth.com/user/antarip',
     demoType: 'minecraft-mod'
+  },
+  {
+    id: 'coming-soon',
+    title: 'COMING SOON',
+    year: 'NEXT',
+    category: 'FUTURE PROJECTS',
+    description: 'New high-performance AI tools, gameplay engines, and unified student applications currently under active development. Stay tuned for upcoming releases.',
+    tags: ['IN DEVELOPMENT', 'AI & AGENTS', 'FULL STACK'],
+    longDescription: 'Additional projects are actively being designed and built. New web tools, open-source utilities, and AI experimental frameworks will be published here upon public release.'
   }
 ];
 
