@@ -73,7 +73,7 @@ export const HERO_DATA = {
   nameFirst: 'ANTARIP',
   nameLast: 'NANDI',
   location: 'Chennai / Siliguri, India',
-  age: '17 Years Old',
+  age: '18 Years Old',
   specialization: 'AI · Sakido Portal · Full-Stack Web Systems',
   avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6Ph1aUBLx03spHIW-mTilL10YVHgWq6NfWqePnyZ3QR5CkCfwiPKHszy7hCFhchLiGfSe-guin6XZVhhlUPBQvjXnIRv-AurxBdWB2AC8OBMc-Eh4lk6Q4_Nsd03sXs8ZvUBoqqeV6xTwQzz5GaQo8qcCUfxgKyYd6zfoXq7C4dl9ysb-I5dEcIKqkyAy5zT2BxpEj-OFfWRYlqlqLplaXF47rBBlvKOiLl6i-1eWGlNexyCcqsJrXjJFokMEmAI7KQZsdULmugW3',
   bgHeroUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCscLaIaKHKFYYnohawIk1fvObNG74L7Ff9hzq-goJgIB1ozz3l_JFaeX1TvuL5R5Wqf2XIOf8zzfAGFo9ggymxb2MVI-EJ9SrXx5QVMm8sIq0NMq_U1wHzpS0pv-qT3o-rfXOWvtfjhnqRxlrtIcwMNXr0cM3TIridX11Np9Ha7CUO1D6pn0_5THVOcsh37YjUIwxVwQ2BiPiZbAzoTk3g-EyiDFq4TkSkejeAqnBgIcwAz__Dx5-id8mia8c1ajfEKDuefpCg1nig'
